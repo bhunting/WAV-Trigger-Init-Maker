@@ -114,6 +114,9 @@ private:
     ScopedPointer<Label> label6;
     ScopedPointer<ToggleButton> retriggerToggle;
     ScopedPointer<TextButton> resetButton;
+    ScopedPointer<Label> label7;
+    ScopedPointer<Label> label8;
+    ScopedPointer<Label> label9;
 
 
     //==============================================================================

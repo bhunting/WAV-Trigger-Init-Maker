@@ -25,7 +25,7 @@ void MainComponent::resetTrigger(void)
 	functionBox->setSelectedId(1);
 	typeBox->setSelectedId(1);
 	invertToggle->setToggleState(false, dontSendNotification);
-	retriggerToggle->setToggleState(false, dontSendNotification);
+	retriggerToggle->setToggleState(true, dontSendNotification);
 	polyToggle->setToggleState(false, dontSendNotification);
 	lowText->setText("", dontSendNotification);
 	highText->setText("", dontSendNotification);

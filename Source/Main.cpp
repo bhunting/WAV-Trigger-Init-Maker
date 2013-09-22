@@ -21,7 +21,7 @@ class InitUtilWindow  : public DocumentWindow
 public:
     //==============================================================================
     InitUtilWindow()
-        : DocumentWindow ("WAV Trigger Pro Init File Maker Utility",
+        : DocumentWindow ("WAV Trigger Pro Init File Maker Utility v0.10",
                           Colours::lightgrey,
                           DocumentWindow::allButtons,
                           true)

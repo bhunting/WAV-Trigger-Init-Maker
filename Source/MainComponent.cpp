@@ -232,7 +232,7 @@ MainComponent::MainComponent ()
     label5->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (label6 = new Label ("new label",
-                                           "Hardware"));
+                                           "Hardware Interface"));
     label6->setFont (Font (15.00f, Font::plain));
     label6->setJustificationType (Justification::centredLeft);
     label6->setEditable (false, false, false);
@@ -240,12 +240,36 @@ MainComponent::MainComponent ()
     label6->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (retriggerToggle = new ToggleButton ("retrigger toggle button"));
-    retriggerToggle->setButtonText ("Re-Trigger");
+    retriggerToggle->setButtonText ("Re-Triggers");
     retriggerToggle->addListener (this);
 
     addAndMakeVisible (resetButton = new TextButton ("reset button"));
     resetButton->setButtonText ("Reset");
     resetButton->addListener (this);
+
+    addAndMakeVisible (label7 = new Label ("new label",
+                                           "(Active High)"));
+    label7->setFont (Font (15.00f, Font::plain));
+    label7->setJustificationType (Justification::centredLeft);
+    label7->setEditable (false, false, false);
+    label7->setColour (TextEditor::textColourId, Colours::black);
+    label7->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (label8 = new Label ("new label",
+                                           "Low"));
+    label8->setFont (Font (15.00f, Font::plain));
+    label8->setJustificationType (Justification::centredLeft);
+    label8->setEditable (false, false, false);
+    label8->setColour (TextEditor::textColourId, Colours::black);
+    label8->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (label9 = new Label ("new label",
+                                           "High"));
+    label9->setFont (Font (15.00f, Font::plain));
+    label9->setJustificationType (Justification::centredLeft);
+    label9->setEditable (false, false, false);
+    label9->setColour (TextEditor::textColourId, Colours::black);
+    label9->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
 
     //[UserPreSize]
@@ -343,6 +367,9 @@ MainComponent::~MainComponent()
     label6 = nullptr;
     retriggerToggle = nullptr;
     resetButton = nullptr;
+    label7 = nullptr;
+    label8 = nullptr;
+    label9 = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -369,18 +396,18 @@ void MainComponent::resized()
     statusBar->setBounds (0, 596, 800, 24);
     functionBox->setBounds (595, 59, 112, 24);
     typeBox->setBounds (481, 59, 98, 24);
-    invertToggle->setBounds (244, 104, 63, 24);
-    polyToggle->setBounds (448, 104, 96, 24);
-    lowText->setBounds (593, 121, 39, 24);
-    highText->setBounds (666, 121, 39, 24);
+    invertToggle->setBounds (248, 96, 108, 24);
+    polyToggle->setBounds (472, 96, 96, 24);
+    lowText->setBounds (596, 125, 39, 24);
+    highText->setBounds (666, 125, 39, 24);
     newButton->setBounds (24, 315, 63, 24);
     saveButton->setBounds (24, 395, 63, 24);
     openButton->setBounds (24, 355, 63, 24);
     saveAsButton->setBounds (24, 435, 63, 24);
     groupComponent2->setBounds (16, 8, 184, 272);
-    label2->setBounds (592, 36, 63, 24);
+    label2->setBounds (589, 36, 63, 24);
     label3->setBounds (476, 35, 47, 24);
-    label4->setBounds (588, 97, 87, 24);
+    label4->setBounds (590, 97, 87, 24);
     baudBox->setBounds (45, 64, 128, 24);
     sampleRateBox->setBounds (46, 128, 128, 24);
     label->setBounds (39, 34, 112, 24);
@@ -395,9 +422,12 @@ void MainComponent::resized()
     updateButton->setBounds (408, 160, 63, 24);
     deleteButton->setBounds (488, 160, 63, 24);
     label5->setBounds (242, 35, 56, 24);
-    label6->setBounds (315, 35, 72, 24);
-    retriggerToggle->setBounds (342, 104, 95, 24);
+    label6->setBounds (315, 35, 141, 24);
+    retriggerToggle->setBounds (360, 96, 95, 24);
     resetButton->setBounds (248, 160, 63, 24);
+    label7->setBounds (263, 112, 96, 24);
+    label8->setBounds (592, 148, 40, 24);
+    label9->setBounds (662, 148, 40, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -709,16 +739,16 @@ BEGIN_JUCER_METADATA
             explicitFocusOrder="0" pos="481 59 98 24" editable="0" layout="33"
             items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <TOGGLEBUTTON name="invert toggle" id="a46ca2e5cccc18cc" memberName="invertToggle"
-                virtualName="" explicitFocusOrder="0" pos="244 104 63 24" buttonText="Invert"
+                virtualName="" explicitFocusOrder="0" pos="248 96 108 24" buttonText="Invert"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="poly toggle" id="429d46bb36488187" memberName="polyToggle"
-                virtualName="" explicitFocusOrder="0" pos="448 104 96 24" buttonText="Polyphonic"
+                virtualName="" explicitFocusOrder="0" pos="472 96 96 24" buttonText="Polyphonic"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TEXTEDITOR name="low text" id="34a63e8887bfc5f3" memberName="lowText" virtualName=""
-              explicitFocusOrder="0" pos="593 121 39 24" initialText="" multiline="0"
+              explicitFocusOrder="0" pos="596 125 39 24" initialText="" multiline="0"
               retKeyStartsLine="0" readonly="0" scrollbars="0" caret="1" popupmenu="1"/>
   <TEXTEDITOR name="high text" id="78ea03ee33471435" memberName="highText"
-              virtualName="" explicitFocusOrder="0" pos="666 121 39 24" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="666 125 39 24" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="0"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="b85453e71d7e819a" memberName="newButton"
@@ -737,7 +767,7 @@ BEGIN_JUCER_METADATA
                   virtualName="" explicitFocusOrder="0" pos="16 8 184 272" textcol="ffffffff"
                   title="System"/>
   <LABEL name="new label" id="55d41def757f7937" memberName="label2" virtualName=""
-         explicitFocusOrder="0" pos="592 36 63 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="589 36 63 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Function" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
@@ -747,7 +777,7 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="76f809313cab5795" memberName="label4" virtualName=""
-         explicitFocusOrder="0" pos="588 97 87 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="590 97 87 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Track Range" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
@@ -805,16 +835,31 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="ce0bd5e83327f19a" memberName="label6" virtualName=""
-         explicitFocusOrder="0" pos="315 35 72 24" edTextCol="ff000000"
-         edBkgCol="0" labelText="Hardware" editableSingleClick="0" editableDoubleClick="0"
-         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
+         explicitFocusOrder="0" pos="315 35 141 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Hardware Interface" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="0" italic="0" justification="33"/>
   <TOGGLEBUTTON name="retrigger toggle button" id="f81a36913a0b030d" memberName="retriggerToggle"
-                virtualName="" explicitFocusOrder="0" pos="342 104 95 24" buttonText="Re-Trigger"
+                virtualName="" explicitFocusOrder="0" pos="360 96 95 24" buttonText="Re-Triggers"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TEXTBUTTON name="reset button" id="4dc7d5288c0df2c4" memberName="resetButton"
               virtualName="" explicitFocusOrder="0" pos="248 160 63 24" buttonText="Reset"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <LABEL name="new label" id="b6406b79fec0442a" memberName="label7" virtualName=""
+         explicitFocusOrder="0" pos="263 112 96 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="(Active High)" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="0" italic="0" justification="33"/>
+  <LABEL name="new label" id="fd492b223f17bf03" memberName="label8" virtualName=""
+         explicitFocusOrder="0" pos="592 148 40 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Low" editableSingleClick="0" editableDoubleClick="0"
+         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
+         bold="0" italic="0" justification="33"/>
+  <LABEL name="new label" id="72cd6762c5446d8e" memberName="label9" virtualName=""
+         explicitFocusOrder="0" pos="662 148 40 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="High" editableSingleClick="0" editableDoubleClick="0"
+         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
+         bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
