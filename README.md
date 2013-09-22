@@ -1,4 +1,4 @@
-WTP-Init-Maker
-==============
+WTP-InitMaker
+=============
 
-WAV Trigger Pro Init File Maker
+WAV Trigger Pro Init File Maker Utility
