@@ -63,6 +63,8 @@ String MainComponent::buildTriggerDesc(void)
 {
 
 String tStr;
+String subStr;
+int i, j;
 
 	// Trigger command and trigger number
 	tStr = "#TRIG ";
@@ -95,12 +97,38 @@ String tStr;
 	tStr += functionBox->getSelectedId();
 	tStr += ", ";
 
-	// Low range
-	tStr += lowText->getText();
-	tStr += ", ";
+	if ((functionBox->getSelectedId() > 1) && (functionBox->getSelectedId() < 6)) {
 
-	// High range
-	tStr += highText->getText();
+		// Low range
+		subStr = lowText->getText();
+		i = subStr.getIntValue();
+		if ((i > 0) && (i < 1000)) {
+			tStr += i;
+			tStr += ", ";
+		}
+		else
+			tStr = "";
+
+		// High range
+		subStr = highText->getText();
+		j = subStr.getIntValue();
+		if ((i > 0) && (i < 1000) && (j >= i)) {
+			tStr += j;
+		}
+		else
+			tStr = "";
+
+		if (tStr.length() == 0) {
+			AlertWindow::showMessageBoxAsync(AlertWindow::InfoIcon, "Track Range Error",
+				"Track Range values for this Trigger Function type must be set to 1 - 999, with HIGH >= LOW");
+			return tStr;
+		}
+	}
+	else {
+		lowText->setText("");
+		highText->setText("");
+		tStr += ",";
+	}
 
 	tStr += newLine;
 	return tStr;
@@ -142,11 +170,16 @@ int MainComponent::findTrigger(int t)
 // **************************************************************************
 // insertTriggerString(): insert an entry for the current trigger settings
 //  into the correct element in the init string array.
-void MainComponent::insertTriggerString(void)
+bool MainComponent::insertTriggerString(void)
 {
 
 int n = 0;
 bool found = false;
+String trigDesc;
+
+	trigDesc = buildTriggerDesc();
+	if (trigDesc.length() == 0)
+		return false;
 
 	while ((n < mInitStrings.size()) && !found) {
 		if (getTriggerNum(mInitStrings[n]) > triggerBox->getSelectedId())
@@ -156,10 +189,13 @@ bool found = false;
 		else
 			n++;
 	}
+
 	if (found)
-		mInitStrings.insert(n, buildTriggerDesc());
+		mInitStrings.insert(n, trigDesc);
 	else
 		mInitStrings.add(buildTriggerDesc());
+
+	return true;
 		
 }
 
@@ -239,10 +275,26 @@ StringArray tokens;
 	}
 
 	// Read and fill in the track range
-	if (n > 7)
-		lowText->setText(tokens[7]);
-	if (n > 8)
-		highText->setText(tokens[8]);
+	if (n > 7) {
+		i = tokens[7].getIntValue();
+		if ((i > 0) && (i < 1000)) {
+			subStr = "";
+			subStr += i;
+			lowText->setText(subStr);
+		}
+		else
+			lowText->setText("");
+	}
+	if (n > 8) {
+		i = tokens[8].getIntValue();
+		if ((i > 0) && (i < 1000)) {
+			subStr = "";
+			subStr += i;
+			highText->setText(subStr);
+		}
+		else
+			highText->setText("");
+	}
 
 	return true;
 

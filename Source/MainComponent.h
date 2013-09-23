@@ -53,7 +53,7 @@ public:
 	void resetTrigger(void);
 	int getTriggerNum(String tStr);
 	int findTrigger(int t);
-	void insertTriggerString(void);
+	bool insertTriggerString(void);
 	String buildTriggerDesc(void);
 	bool parseTriggerDesc(String tStr);
 	void deleteInitString(int n);

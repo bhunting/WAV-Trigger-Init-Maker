@@ -392,8 +392,8 @@ void MainComponent::resized()
 {
     groupComponent3->setBounds (217, 224, 528, 352);
     groupComponent->setBounds (217, 8, 528, 208);
-    quitButton->setBounds (getWidth() - 756, getHeight() - 148, 63, 24);
-    statusBar->setBounds (0, 596, 800, 24);
+    quitButton->setBounds (24, 472, 63, 24);
+    statusBar->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
     functionBox->setBounds (595, 59, 112, 24);
     typeBox->setBounds (481, 59, 98, 24);
     invertToggle->setBounds (248, 96, 108, 24);
@@ -491,11 +491,12 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_addButton] -- add your button handler code here..
 
 		//mInitStrings.add(buildTriggerDesc());
-		insertTriggerString();
-		updateInitWindow();
-		addButton->setEnabled(false);
-		updateButton->setEnabled(true);
-		deleteButton->setEnabled(true);
+		if (insertTriggerString()) {
+			updateInitWindow();
+			addButton->setEnabled(false);
+			updateButton->setEnabled(true);
+			deleteButton->setEnabled(true);
+		}
 
         //[/UserButtonCode_addButton]
     }
@@ -724,10 +725,10 @@ BEGIN_JUCER_METADATA
                   virtualName="" explicitFocusOrder="0" pos="217 8 528 208" outlinecol="66000000"
                   textcol="ffffffff" title="Trigger Settings"/>
   <TEXTBUTTON name="" id="bcf4f7b0888effe5" memberName="quitButton" virtualName=""
-              explicitFocusOrder="0" pos="756R 148R 63 24" buttonText="Quit"
-              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+              explicitFocusOrder="0" pos="24 472 63 24" buttonText="Quit" connectedEdges="0"
+              needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="ef8d15cc5a4b63c3" memberName="statusBar"
-         virtualName="" explicitFocusOrder="0" pos="0 596 800 24" bkgCol="ff8da3da"
+         virtualName="" explicitFocusOrder="0" pos="0 0Rr 100% 24" bkgCol="ff8da3da"
          textCol="ffad0101" outlineCol="0" edTextCol="ff000000" edBkgCol="0"
          labelText="" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
