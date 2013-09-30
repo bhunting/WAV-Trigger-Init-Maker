@@ -117,6 +117,7 @@ private:
     ScopedPointer<Label> label7;
     ScopedPointer<Label> label8;
     ScopedPointer<Label> label9;
+    ScopedPointer<ToggleButton> ampToggle;
 
 
     //==============================================================================

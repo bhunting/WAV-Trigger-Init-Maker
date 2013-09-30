@@ -38,6 +38,7 @@ void MainComponent::reset(void)
 	sampleRateBox->setSelectedId(3);
 	baudBox->setSelectedId(4);
 	volSlider->setValue(0.0, dontSendNotification);
+	ampToggle->setToggleState(false, dontSendNotification);
 	triggerBox->setSelectedId(1);
 	resetTrigger();
 

@@ -271,6 +271,10 @@ MainComponent::MainComponent ()
     label9->setColour (TextEditor::textColourId, Colours::black);
     label9->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
+    addAndMakeVisible (ampToggle = new ToggleButton ("amp toggle button"));
+    ampToggle->setButtonText ("Audio Amp Power");
+    ampToggle->addListener (this);
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -370,6 +374,7 @@ MainComponent::~MainComponent()
     label7 = nullptr;
     label8 = nullptr;
     label9 = nullptr;
+    ampToggle = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -392,7 +397,7 @@ void MainComponent::resized()
 {
     groupComponent3->setBounds (217, 224, 528, 352);
     groupComponent->setBounds (217, 8, 528, 208);
-    quitButton->setBounds (24, 472, 63, 24);
+    quitButton->setBounds (24, 504, 63, 24);
     statusBar->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
     functionBox->setBounds (595, 59, 112, 24);
     typeBox->setBounds (481, 59, 98, 24);
@@ -400,11 +405,11 @@ void MainComponent::resized()
     polyToggle->setBounds (472, 96, 96, 24);
     lowText->setBounds (596, 125, 39, 24);
     highText->setBounds (666, 125, 39, 24);
-    newButton->setBounds (24, 315, 63, 24);
-    saveButton->setBounds (24, 395, 63, 24);
-    openButton->setBounds (24, 355, 63, 24);
-    saveAsButton->setBounds (24, 435, 63, 24);
-    groupComponent2->setBounds (16, 8, 184, 272);
+    newButton->setBounds (24, 347, 63, 24);
+    saveButton->setBounds (24, 427, 63, 24);
+    openButton->setBounds (24, 387, 63, 24);
+    saveAsButton->setBounds (24, 467, 63, 24);
+    groupComponent2->setBounds (16, 8, 184, 304);
     label2->setBounds (589, 36, 63, 24);
     label3->setBounds (476, 35, 47, 24);
     label4->setBounds (590, 97, 87, 24);
@@ -412,8 +417,8 @@ void MainComponent::resized()
     sampleRateBox->setBounds (46, 128, 128, 24);
     label->setBounds (39, 34, 112, 24);
     label21->setBounds (42, 99, 128, 24);
-    volSlider->setBounds (40, 199, 140, 48);
-    label22->setBounds (42, 175, 150, 24);
+    volSlider->setBounds (40, 193, 140, 48);
+    label22->setBounds (42, 169, 150, 24);
     linkButton->setBounds (24, 552, 150, 24);
     initText->setBounds (240, 248, 483, 310);
     triggerBox->setBounds (248, 59, 56, 24);
@@ -428,6 +433,7 @@ void MainComponent::resized()
     label7->setBounds (263, 112, 96, 24);
     label8->setBounds (592, 148, 40, 24);
     label9->setBounds (662, 148, 40, 24);
+    ampToggle->setBounds (43, 262, 136, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -543,6 +549,25 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 		resetTrigger();
 
         //[/UserButtonCode_resetButton]
+    }
+    else if (buttonThatWasClicked == ampToggle)
+    {
+        //[UserButtonCode_ampToggle] -- add your button handler code here..
+
+		// Look for and delete any existing SPKR entry
+		for (int n = 0; n < mInitStrings.size(); n++) {
+			if (mInitStrings[n].startsWith("#SPKR"))
+				mInitStrings.remove(n);
+		}
+		// Add an entry to enable if toggle state is true
+		if (ampToggle->getToggleState()) {
+			String bStr = "#SPKR 1";
+			bStr += newLine;
+			mInitStrings.insert(0, bStr);
+		}
+		updateInitWindow();
+
+        //[/UserButtonCode_ampToggle]
     }
 
     //[UserbuttonClicked_Post]
@@ -725,7 +750,7 @@ BEGIN_JUCER_METADATA
                   virtualName="" explicitFocusOrder="0" pos="217 8 528 208" outlinecol="66000000"
                   textcol="ffffffff" title="Trigger Settings"/>
   <TEXTBUTTON name="" id="bcf4f7b0888effe5" memberName="quitButton" virtualName=""
-              explicitFocusOrder="0" pos="24 472 63 24" buttonText="Quit" connectedEdges="0"
+              explicitFocusOrder="0" pos="24 504 63 24" buttonText="Quit" connectedEdges="0"
               needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="ef8d15cc5a4b63c3" memberName="statusBar"
          virtualName="" explicitFocusOrder="0" pos="0 0Rr 100% 24" bkgCol="ff8da3da"
@@ -753,19 +778,19 @@ BEGIN_JUCER_METADATA
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="0"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="b85453e71d7e819a" memberName="newButton"
-              virtualName="" explicitFocusOrder="0" pos="24 315 63 24" buttonText="New"
+              virtualName="" explicitFocusOrder="0" pos="24 347 63 24" buttonText="New"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save button" id="7f44c667d204efa4" memberName="saveButton"
-              virtualName="" explicitFocusOrder="0" pos="24 395 63 24" buttonText="Save"
+              virtualName="" explicitFocusOrder="0" pos="24 427 63 24" buttonText="Save"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="open button" id="aff16e2440c1e77e" memberName="openButton"
-              virtualName="" explicitFocusOrder="0" pos="24 355 63 24" buttonText="Open"
+              virtualName="" explicitFocusOrder="0" pos="24 387 63 24" buttonText="Open"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save as button" id="36951dd779d924d0" memberName="saveAsButton"
-              virtualName="" explicitFocusOrder="0" pos="24 435 63 24" buttonText="Save As"
+              virtualName="" explicitFocusOrder="0" pos="24 467 63 24" buttonText="Save As"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <GROUPCOMPONENT name="new group" id="6ec7de23acb7bc6f" memberName="groupComponent2"
-                  virtualName="" explicitFocusOrder="0" pos="16 8 184 272" textcol="ffffffff"
+                  virtualName="" explicitFocusOrder="0" pos="16 8 184 304" textcol="ffffffff"
                   title="System"/>
   <LABEL name="new label" id="55d41def757f7937" memberName="label2" virtualName=""
          explicitFocusOrder="0" pos="589 36 63 24" edTextCol="ff000000"
@@ -799,11 +824,11 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <SLIDER name="volume slider" id="fbfedd66eca0907d" memberName="volSlider"
-          virtualName="" explicitFocusOrder="0" pos="40 199 140 48" min="-20"
+          virtualName="" explicitFocusOrder="0" pos="40 193 140 48" min="-20"
           max="10" int="1" style="LinearHorizontal" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="new label" id="8236b56510d8f8c8" memberName="label22" virtualName=""
-         explicitFocusOrder="0" pos="42 175 150 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="42 169 150 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Initial Volume (dB)" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
@@ -861,6 +886,9 @@ BEGIN_JUCER_METADATA
          edBkgCol="0" labelText="High" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
+  <TOGGLEBUTTON name="amp toggle button" id="52afbea038eb88e6" memberName="ampToggle"
+                virtualName="" explicitFocusOrder="0" pos="43 262 136 24" buttonText="Audio Amp Power"
+                connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
