@@ -36,9 +36,9 @@ void MainComponent::resetTrigger(void)
 void MainComponent::reset(void)
 {
 	sampleRateBox->setSelectedId(3);
-	baudBox->setSelectedId(4);
+	baudBox->setSelectedId(6);
 	volSlider->setValue(0.0, dontSendNotification);
-	ampToggle->setToggleState(false, dontSendNotification);
+	ampToggle->setToggleState(true, dontSendNotification);
 	triggerBox->setSelectedId(1);
 	resetTrigger();
 

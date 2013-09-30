@@ -292,6 +292,7 @@ MainComponent::MainComponent ()
 	baudBox->addItem("9600 bps", 3);
 	baudBox->addItem("19.2 kbps", 4);
 	baudBox->addItem("38.4 kbps", 5);
+	baudBox->addItem("57.6 kbps", 6);
 
 	sampleRateBox->addItem("11,025 Hz", 1);
 	sampleRateBox->addItem("22,050 Hz", 2);
@@ -560,8 +561,8 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 				mInitStrings.remove(n);
 		}
 		// Add an entry to enable if toggle state is true
-		if (ampToggle->getToggleState()) {
-			String bStr = "#SPKR 1";
+		if (!ampToggle->getToggleState()) {
+			String bStr = "#SPKR 0";
 			bStr += newLine;
 			mInitStrings.insert(0, bStr);
 		}
@@ -599,7 +600,7 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 				mInitStrings.remove(n);
 		}
 		// Add an entry if not the default
-		if (baudBox->getSelectedId() != 4) {
+		if (baudBox->getSelectedId() != 6) {
 			String bStr = "#BAUD ";
 			switch (baudBox->getSelectedId()) {
 				case 1:
@@ -610,6 +611,9 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 				break;
 				case 3:
 					bStr += "9600";
+				break;
+				case 4:
+					bStr += "19200";
 				break;
 				case 5:
 					bStr += "38400";
