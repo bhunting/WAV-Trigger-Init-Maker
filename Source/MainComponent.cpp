@@ -744,8 +744,7 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component, public ChangeListener" constructorParams=""
                  variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
-                 overlayOpacity="0.330000013" fixedSize="1" initialWidth="780"
-                 initialHeight="620">
+                 overlayOpacity="0.330" fixedSize="1" initialWidth="780" initialHeight="620">
   <BACKGROUND backgroundColour="ff2a4dba"/>
   <GROUPCOMPONENT name="new group" id="4825f51d5be1772d" memberName="groupComponent3"
                   virtualName="" explicitFocusOrder="0" pos="217 224 528 352" textcol="ffffffff"

@@ -10,26 +10,41 @@
               pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="0"
               pluginTailLength="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="HelloWorldAU"
               pluginAUViewClass="HelloWorldAU_V1" pluginRTASCategory="" bundleIdentifier="com.robertsonics.wtpinitmaker"
-              companyName="Robertsonics">
+              companyName="Robertsonics" includeBinaryInAppConfig="1">
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="~/SDKs/vstsdk2.4" rtasFolder="~/SDKs/PT_80_SDK"
-               juceFolder="/Juce" objCExtraSuffix="JtTAKTK1s">
+               objCExtraSuffix="JtTAKTK1s">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="WTP_InitMaker"
                        osxSDK="1" osxCompatibility="1" osxArchitecture="default"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="WTP_InitMaker"
                        osxSDK="1" osxCompatibility="1" osxArchitecture="default"/>
       </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_extra" path="/Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="/Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="/Juce/modules"/>
+        <MODULEPATH id="juce_events" path="/Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="/Juce/modules"/>
+        <MODULEPATH id="juce_core" path="/Juce/modules"/>
+      </MODULEPATHS>
     </XCODE_MAC>
     <VS2008 targetFolder="Builds/VisualStudio2008" vstFolder="c:\SDKs\vstsdk2.4"
-            rtasFolder="c:\SDKs\PT_80_SDK" juceFolder="c:/Juce" libraryType="1"
-            externalLibraries="Setupapi.lib">
+            rtasFolder="c:\SDKs\PT_80_SDK" libraryType="1" externalLibraries="Setupapi.lib">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="WTP_InitMaker"
                        winWarningLevel="4" generateManifest="1"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="WTP_InitMaker"
                        winWarningLevel="4" generateManifest="1"/>
       </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_extra" path="c:/Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="c:/Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="c:/Juce/modules"/>
+        <MODULEPATH id="juce_events" path="c:/Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="c:/Juce/modules"/>
+        <MODULEPATH id="juce_core" path="c:/Juce/modules"/>
+      </MODULEPATHS>
     </VS2008>
   </EXPORTFORMATS>
   <MAINGROUP id="a0m6ZvX1F" name="WTP_InitMaker">
@@ -44,10 +59,10 @@
   <JUCEOPTIONS/>
   <MODULES>
     <MODULE id="juce_core" showAllCode="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1"/>
     <MODULE id="juce_events" showAllCode="1"/>
     <MODULE id="juce_graphics" showAllCode="1"/>
-    <MODULE id="juce_data_structures" showAllCode="1"/>
-    <MODULE id="juce_gui_extra" showAllCode="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1"/>
   </MODULES>
 </JUCERPROJECT>
