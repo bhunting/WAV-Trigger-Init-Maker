@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="WTP_InitMaker"
+	Name="WT-InitMaker"
 	ProjectGUID="{DE45EB49-4787-51B4-1A66-9F94E58BE282}"
 	TargetFrameworkVersion="131072"
 	>
@@ -41,7 +41,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName="$(IntDir)\WTP_InitMaker.tlb"
+				TypeLibraryName="$(IntDir)\WT-InitMaker.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -52,7 +52,7 @@
 				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderFile="$(IntDir)\WTP_InitMaker.pch"
+				PrecompiledHeaderFile="$(IntDir)\WT-InitMaker.pch"
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
 				ProgramDataBaseFileName="$(IntDir)\"
@@ -73,12 +73,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Setupapi.lib"
-				OutputFile="$(OutDir)\WTP_InitMaker.exe"
+				OutputFile="$(OutDir)\WT-InitMaker.exe"
 				SuppressStartupBanner="true"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="libcmt.lib, msvcrt.lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(IntDir)\WTP_InitMaker.pdb"
+				ProgramDatabaseFile="$(IntDir)\WT-InitMaker.pdb"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
@@ -94,7 +94,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="$(IntDir)\WTP_InitMaker.bsc"
+				OutputFile="$(IntDir)\WT-InitMaker.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -133,7 +133,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName="$(IntDir)\WTP_InitMaker.tlb"
+				TypeLibraryName="$(IntDir)\WT-InitMaker.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -146,7 +146,7 @@
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderFile="$(IntDir)\WTP_InitMaker.pch"
+				PrecompiledHeaderFile="$(IntDir)\WT-InitMaker.pch"
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
 				ProgramDataBaseFileName="$(IntDir)\"
@@ -166,12 +166,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Setupapi.lib"
-				OutputFile="$(OutDir)\WTP_InitMaker.exe"
+				OutputFile="$(OutDir)\WT-InitMaker.exe"
 				SuppressStartupBanner="true"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="false"
-				ProgramDatabaseFile="$(IntDir)\WTP_InitMaker.pdb"
+				ProgramDatabaseFile="$(IntDir)\WT-InitMaker.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -189,7 +189,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="$(IntDir)\WTP_InitMaker.bsc"
+				OutputFile="$(IntDir)\WT-InitMaker.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -206,7 +206,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="WTP_InitMaker"
+			Name="WT-InitMaker"
 			>
 			<Filter
 				Name="Source"

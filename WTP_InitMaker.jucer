@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="tTAKTK1s" name="WTP_InitMaker" projectType="guiapp" juceLinkage="amalg_multi"
+<JUCERPROJECT id="tTAKTK1s" name="WT-InitMaker" projectType="guiapp" juceLinkage="amalg_multi"
               juceFolder="../../../juce" jucerVersion="3.1.0" version="1.0.0"
               buildVST="1" buildRTAS="0" buildAU="1" vstFolderMac="~/SDKs/vstsdk2.4"
               vstFolderPC="c:\SDKs\vstsdk2.4" rtasFolderMac="~/SDKs/PT_80_SDK"
@@ -15,9 +15,9 @@
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="~/SDKs/vstsdk2.4" rtasFolder="~/SDKs/PT_80_SDK"
                objCExtraSuffix="JtTAKTK1s">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="WTP_InitMaker"
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="WT-InitMaker"
                        osxSDK="1" osxCompatibility="1" osxArchitecture="default"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="WTP_InitMaker"
+        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="WT-InitMaker"
                        osxSDK="1" osxCompatibility="1" osxArchitecture="default"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
@@ -32,9 +32,9 @@
     <VS2008 targetFolder="Builds/VisualStudio2008" vstFolder="c:\SDKs\vstsdk2.4"
             rtasFolder="c:\SDKs\PT_80_SDK" libraryType="1" externalLibraries="Setupapi.lib">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="WTP_InitMaker"
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="WT-InitMaker"
                        winWarningLevel="4" generateManifest="1"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="WTP_InitMaker"
+        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="WT-InitMaker"
                        winWarningLevel="4" generateManifest="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
@@ -46,8 +46,16 @@
         <MODULEPATH id="juce_core" path="c:/Juce/modules"/>
       </MODULEPATHS>
     </VS2008>
+    <LINUX_MAKE targetFolder="Builds/Linux">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
+                       targetName="WT-InitMaker"/>
+        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
+                       targetName="WT-InitMaker"/>
+      </CONFIGURATIONS>
+    </LINUX_MAKE>
   </EXPORTFORMATS>
-  <MAINGROUP id="a0m6ZvX1F" name="WTP_InitMaker">
+  <MAINGROUP id="a0m6ZvX1F" name="WT-InitMaker">
     <GROUP id="GVpTv8yA5" name="Source">
       <FILE id="wm1yCLKYK" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="Ir0rGDFpT" name="MainComponent.cpp" compile="1" resource="0"

@@ -5,6 +5,8 @@
  #include "/Juce/modules/juce_core/juce_core.h"
 #elif defined (JUCER_VS2008_78A5006)
  #include "c:/Juce/modules/juce_core/juce_core.h"
+#elif defined (JUCER_LINUX_MAKE_7346DA2A)
+ #include "/juce_core/juce_core.h"
 #else
  #error "This file is designed to be used in an Introjucer-generated project!"
 #endif

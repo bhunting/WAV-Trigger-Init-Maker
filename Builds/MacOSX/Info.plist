@@ -10,7 +10,7 @@
     <key>CFBundleIdentifier</key>
     <string>com.robertsonics.wtpinitmaker</string>
     <key>CFBundleName</key>
-    <string>WTP_InitMaker</string>
+    <string>WT-InitMaker</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>

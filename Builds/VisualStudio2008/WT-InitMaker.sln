@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{16872856-FD1F-F4FA-4713-42E5245941A8}") = "WTP_InitMaker", "WTP_InitMaker.vcproj", "{DE45EB49-4787-51B4-1A66-9F94E58BE282}"
+Project("{BD1ACBAC-20DB-6590-1709-EAA3F6A7C308}") = "WT-InitMaker", "WT-InitMaker.vcproj", "{DE45EB49-4787-51B4-1A66-9F94E58BE282}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
