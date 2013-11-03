@@ -30,10 +30,6 @@
 //==============================================================================
 MainComponent::MainComponent ()
 {
-    addAndMakeVisible (groupComponent3 = new GroupComponent ("new group",
-                                                             "Init File"));
-    groupComponent3->setColour (GroupComponent::textColourId, Colours::white);
-
     addAndMakeVisible (groupComponent = new GroupComponent ("new group",
                                                             "Trigger Settings"));
     groupComponent->setColour (GroupComponent::outlineColourId, Colour (0x66000000));
@@ -275,11 +271,20 @@ MainComponent::MainComponent ()
     ampToggle->setButtonText ("Audio Amp Power");
     ampToggle->addListener (this);
 
+    addAndMakeVisible (label10 = new Label ("new label",
+                                            "Init File Content:"));
+    label10->setFont (Font (15.00f, Font::plain));
+    label10->setJustificationType (Justification::centredLeft);
+    label10->setEditable (false, false, false);
+    label10->setColour (Label::textColourId, Colour (0xfffffdfd));
+    label10->setColour (TextEditor::textColourId, Colours::black);
+    label10->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (780, 620);
+    setSize (800, 620);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -297,6 +302,7 @@ MainComponent::MainComponent ()
 	sampleRateBox->addItem("11,025 Hz", 1);
 	sampleRateBox->addItem("22,050 Hz", 2);
 	sampleRateBox->addItem("44,100 Hz", 3);
+	sampleRateBox->setEnabled(false);
 
 	char buf[8];
 	for (int i = 1; i < 17; i++) {
@@ -312,9 +318,11 @@ MainComponent::MainComponent ()
 	functionBox->addItem("Next", 2);
 	functionBox->addItem("Previous", 3);
 	functionBox->addItem("Random", 4);
-	functionBox->addItem("Stop", 5);
-	functionBox->addItem("Volume Up", 6);
-	functionBox->addItem("Volume Dn", 7);
+	functionBox->addItem("Pause", 5);
+	functionBox->addItem("Resume", 6);
+	functionBox->addItem("Stop", 7);
+	functionBox->addItem("Volume Up", 8);
+	functionBox->addItem("Volume Dn", 9);
 
 	typeBox->addItem("Edge", 1);
 	typeBox->addItem("Level", 2);
@@ -337,7 +345,6 @@ MainComponent::~MainComponent()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    groupComponent3 = nullptr;
     groupComponent = nullptr;
     quitButton = nullptr;
     statusBar = nullptr;
@@ -376,6 +383,7 @@ MainComponent::~MainComponent()
     label8 = nullptr;
     label9 = nullptr;
     ampToggle = nullptr;
+    label10 = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -396,45 +404,45 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    groupComponent3->setBounds (217, 224, 528, 352);
-    groupComponent->setBounds (217, 8, 528, 208);
-    quitButton->setBounds (24, 504, 63, 24);
+    groupComponent->setBounds (244, 26, 526, 208);
+    quitButton->setBounds (32, 504, 63, 24);
     statusBar->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
-    functionBox->setBounds (595, 59, 112, 24);
-    typeBox->setBounds (481, 59, 98, 24);
-    invertToggle->setBounds (248, 96, 108, 24);
-    polyToggle->setBounds (472, 96, 96, 24);
-    lowText->setBounds (596, 125, 39, 24);
-    highText->setBounds (666, 125, 39, 24);
-    newButton->setBounds (24, 347, 63, 24);
-    saveButton->setBounds (24, 427, 63, 24);
-    openButton->setBounds (24, 387, 63, 24);
-    saveAsButton->setBounds (24, 467, 63, 24);
-    groupComponent2->setBounds (16, 8, 184, 304);
-    label2->setBounds (589, 36, 63, 24);
-    label3->setBounds (476, 35, 47, 24);
-    label4->setBounds (590, 97, 87, 24);
-    baudBox->setBounds (45, 64, 128, 24);
-    sampleRateBox->setBounds (46, 128, 128, 24);
-    label->setBounds (39, 34, 112, 24);
-    label21->setBounds (42, 99, 128, 24);
-    volSlider->setBounds (40, 193, 140, 48);
-    label22->setBounds (42, 169, 150, 24);
-    linkButton->setBounds (24, 552, 150, 24);
-    initText->setBounds (240, 248, 483, 310);
-    triggerBox->setBounds (248, 59, 56, 24);
-    interfaceBox->setBounds (321, 59, 143, 24);
-    addButton->setBounds (328, 160, 63, 24);
-    updateButton->setBounds (408, 160, 63, 24);
-    deleteButton->setBounds (488, 160, 63, 24);
-    label5->setBounds (242, 35, 56, 24);
-    label6->setBounds (315, 35, 141, 24);
-    retriggerToggle->setBounds (360, 96, 95, 24);
-    resetButton->setBounds (248, 160, 63, 24);
-    label7->setBounds (263, 112, 96, 24);
-    label8->setBounds (592, 148, 40, 24);
-    label9->setBounds (662, 148, 40, 24);
-    ampToggle->setBounds (43, 262, 136, 24);
+    functionBox->setBounds (624, 77, 112, 24);
+    typeBox->setBounds (510, 77, 98, 24);
+    invertToggle->setBounds (277, 114, 108, 24);
+    polyToggle->setBounds (501, 114, 96, 24);
+    lowText->setBounds (625, 143, 39, 24);
+    highText->setBounds (695, 143, 39, 24);
+    newButton->setBounds (32, 347, 63, 24);
+    saveButton->setBounds (32, 427, 63, 24);
+    openButton->setBounds (32, 387, 63, 24);
+    saveAsButton->setBounds (32, 467, 63, 24);
+    groupComponent2->setBounds (32, 26, 184, 294);
+    label2->setBounds (618, 54, 63, 24);
+    label3->setBounds (505, 53, 47, 24);
+    label4->setBounds (619, 115, 87, 24);
+    baudBox->setBounds (61, 82, 128, 24);
+    sampleRateBox->setBounds (62, 146, 128, 24);
+    label->setBounds (55, 52, 112, 24);
+    label21->setBounds (58, 117, 128, 24);
+    volSlider->setBounds (56, 211, 140, 48);
+    label22->setBounds (58, 187, 150, 24);
+    linkButton->setBounds (16, 552, 150, 24);
+    initText->setBounds (248, 270, 520, 300);
+    triggerBox->setBounds (277, 77, 56, 24);
+    interfaceBox->setBounds (350, 77, 143, 24);
+    addButton->setBounds (357, 178, 63, 24);
+    updateButton->setBounds (437, 178, 63, 24);
+    deleteButton->setBounds (517, 178, 63, 24);
+    label5->setBounds (271, 53, 56, 24);
+    label6->setBounds (344, 53, 141, 24);
+    retriggerToggle->setBounds (389, 114, 95, 24);
+    resetButton->setBounds (277, 178, 63, 24);
+    label7->setBounds (292, 130, 96, 24);
+    label8->setBounds (621, 166, 40, 24);
+    label9->setBounds (691, 166, 40, 24);
+    ampToggle->setBounds (59, 280, 136, 24);
+    label10->setBounds (243, 241, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -744,16 +752,13 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component, public ChangeListener" constructorParams=""
                  variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
-                 overlayOpacity="0.330" fixedSize="1" initialWidth="780" initialHeight="620">
+                 overlayOpacity="0.330" fixedSize="1" initialWidth="800" initialHeight="620">
   <BACKGROUND backgroundColour="ff2a4dba"/>
-  <GROUPCOMPONENT name="new group" id="4825f51d5be1772d" memberName="groupComponent3"
-                  virtualName="" explicitFocusOrder="0" pos="217 224 528 352" textcol="ffffffff"
-                  title="Init File"/>
   <GROUPCOMPONENT name="new group" id="38c25bfaed540c9a" memberName="groupComponent"
-                  virtualName="" explicitFocusOrder="0" pos="217 8 528 208" outlinecol="66000000"
+                  virtualName="" explicitFocusOrder="0" pos="244 26 526 208" outlinecol="66000000"
                   textcol="ffffffff" title="Trigger Settings"/>
   <TEXTBUTTON name="" id="bcf4f7b0888effe5" memberName="quitButton" virtualName=""
-              explicitFocusOrder="0" pos="24 504 63 24" buttonText="Quit" connectedEdges="0"
+              explicitFocusOrder="0" pos="32 504 63 24" buttonText="Quit" connectedEdges="0"
               needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="ef8d15cc5a4b63c3" memberName="statusBar"
          virtualName="" explicitFocusOrder="0" pos="0 0Rr 100% 24" bkgCol="ff8da3da"
@@ -762,136 +767,141 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <COMBOBOX name="function box" id="8ec5e1a0b6bf5e23" memberName="functionBox"
-            virtualName="" explicitFocusOrder="0" pos="595 59 112 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="624 77 112 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <COMBOBOX name="type box" id="d1fcc0036164e910" memberName="typeBox" virtualName=""
-            explicitFocusOrder="0" pos="481 59 98 24" editable="0" layout="33"
+            explicitFocusOrder="0" pos="510 77 98 24" editable="0" layout="33"
             items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <TOGGLEBUTTON name="invert toggle" id="a46ca2e5cccc18cc" memberName="invertToggle"
-                virtualName="" explicitFocusOrder="0" pos="248 96 108 24" buttonText="Invert"
+                virtualName="" explicitFocusOrder="0" pos="277 114 108 24" buttonText="Invert"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="poly toggle" id="429d46bb36488187" memberName="polyToggle"
-                virtualName="" explicitFocusOrder="0" pos="472 96 96 24" buttonText="Polyphonic"
+                virtualName="" explicitFocusOrder="0" pos="501 114 96 24" buttonText="Polyphonic"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TEXTEDITOR name="low text" id="34a63e8887bfc5f3" memberName="lowText" virtualName=""
-              explicitFocusOrder="0" pos="596 125 39 24" initialText="" multiline="0"
+              explicitFocusOrder="0" pos="625 143 39 24" initialText="" multiline="0"
               retKeyStartsLine="0" readonly="0" scrollbars="0" caret="1" popupmenu="1"/>
   <TEXTEDITOR name="high text" id="78ea03ee33471435" memberName="highText"
-              virtualName="" explicitFocusOrder="0" pos="666 125 39 24" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="695 143 39 24" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="0"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="b85453e71d7e819a" memberName="newButton"
-              virtualName="" explicitFocusOrder="0" pos="24 347 63 24" buttonText="New"
+              virtualName="" explicitFocusOrder="0" pos="32 347 63 24" buttonText="New"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save button" id="7f44c667d204efa4" memberName="saveButton"
-              virtualName="" explicitFocusOrder="0" pos="24 427 63 24" buttonText="Save"
+              virtualName="" explicitFocusOrder="0" pos="32 427 63 24" buttonText="Save"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="open button" id="aff16e2440c1e77e" memberName="openButton"
-              virtualName="" explicitFocusOrder="0" pos="24 387 63 24" buttonText="Open"
+              virtualName="" explicitFocusOrder="0" pos="32 387 63 24" buttonText="Open"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save as button" id="36951dd779d924d0" memberName="saveAsButton"
-              virtualName="" explicitFocusOrder="0" pos="24 467 63 24" buttonText="Save As"
+              virtualName="" explicitFocusOrder="0" pos="32 467 63 24" buttonText="Save As"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <GROUPCOMPONENT name="new group" id="6ec7de23acb7bc6f" memberName="groupComponent2"
-                  virtualName="" explicitFocusOrder="0" pos="16 8 184 304" textcol="ffffffff"
+                  virtualName="" explicitFocusOrder="0" pos="32 26 184 294" textcol="ffffffff"
                   title="System"/>
   <LABEL name="new label" id="55d41def757f7937" memberName="label2" virtualName=""
-         explicitFocusOrder="0" pos="589 36 63 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="618 54 63 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Function" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="ab69c117bbd4949c" memberName="label3" virtualName=""
-         explicitFocusOrder="0" pos="476 35 47 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="505 53 47 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Type" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="76f809313cab5795" memberName="label4" virtualName=""
-         explicitFocusOrder="0" pos="590 97 87 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="619 115 87 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Track Range" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <COMBOBOX name="baud box" id="34072d5a8cd3a40e" memberName="baudBox" virtualName=""
-            explicitFocusOrder="0" pos="45 64 128 24" editable="0" layout="33"
+            explicitFocusOrder="0" pos="61 82 128 24" editable="0" layout="33"
             items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <COMBOBOX name="sample rate box" id="b1bacfa2afd6ee10" memberName="sampleRateBox"
-            virtualName="" explicitFocusOrder="0" pos="46 128 128 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="62 146 128 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="b168245de12e2a99" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="39 34 112 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="55 52 112 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Serial Baudrate" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="53a98ea4fee8c3f8" memberName="label21" virtualName=""
-         explicitFocusOrder="0" pos="42 99 128 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="58 117 128 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Audio Sample Rate" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <SLIDER name="volume slider" id="fbfedd66eca0907d" memberName="volSlider"
-          virtualName="" explicitFocusOrder="0" pos="40 193 140 48" min="-20"
+          virtualName="" explicitFocusOrder="0" pos="56 211 140 48" min="-20"
           max="10" int="1" style="LinearHorizontal" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="new label" id="8236b56510d8f8c8" memberName="label22" virtualName=""
-         explicitFocusOrder="0" pos="42 169 150 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="58 187 150 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Initial Volume (dB)" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <HYPERLINKBUTTON name="link button" id="f202f29b31c62ae" memberName="linkButton"
-                   virtualName="" explicitFocusOrder="0" pos="24 552 150 24" tooltip="http://www.robertsonics.com/makerjam/support/"
+                   virtualName="" explicitFocusOrder="0" pos="16 552 150 24" tooltip="http://www.robertsonics.com/makerjam/support/"
                    textCol="ffffffff" buttonText="robertsonics.com" connectedEdges="0"
                    needsCallback="0" radioGroupId="0" url="http://www.robertsonics.com/makerjam/support/"/>
   <TEXTEDITOR name="init text editor" id="affceb0f94323c59" memberName="initText"
-              virtualName="" explicitFocusOrder="0" pos="240 248 483 310" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="248 270 520 300" initialText=""
               multiline="1" retKeyStartsLine="1" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <COMBOBOX name="trigger combo box" id="254229b66c221ce9" memberName="triggerBox"
-            virtualName="" explicitFocusOrder="0" pos="248 59 56 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="277 77 56 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <COMBOBOX name="interface combo box" id="7acafe3ed6d58318" memberName="interfaceBox"
-            virtualName="" explicitFocusOrder="0" pos="321 59 143 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="350 77 143 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <TEXTBUTTON name="add button" id="82c93bdd5a7a904" memberName="addButton"
-              virtualName="" explicitFocusOrder="0" pos="328 160 63 24" buttonText="Add"
+              virtualName="" explicitFocusOrder="0" pos="357 178 63 24" buttonText="Add"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="update button" id="1bccddea64d1188d" memberName="updateButton"
-              virtualName="" explicitFocusOrder="0" pos="408 160 63 24" buttonText="Update"
+              virtualName="" explicitFocusOrder="0" pos="437 178 63 24" buttonText="Update"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="delete button" id="59540029ea4972fb" memberName="deleteButton"
-              virtualName="" explicitFocusOrder="0" pos="488 160 63 24" buttonText="Delete"
+              virtualName="" explicitFocusOrder="0" pos="517 178 63 24" buttonText="Delete"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="fa287ff2e92f4a56" memberName="label5" virtualName=""
-         explicitFocusOrder="0" pos="242 35 56 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="271 53 56 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Trigger" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="ce0bd5e83327f19a" memberName="label6" virtualName=""
-         explicitFocusOrder="0" pos="315 35 141 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="344 53 141 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Hardware Interface" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <TOGGLEBUTTON name="retrigger toggle button" id="f81a36913a0b030d" memberName="retriggerToggle"
-                virtualName="" explicitFocusOrder="0" pos="360 96 95 24" buttonText="Re-Triggers"
+                virtualName="" explicitFocusOrder="0" pos="389 114 95 24" buttonText="Re-Triggers"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TEXTBUTTON name="reset button" id="4dc7d5288c0df2c4" memberName="resetButton"
-              virtualName="" explicitFocusOrder="0" pos="248 160 63 24" buttonText="Reset"
+              virtualName="" explicitFocusOrder="0" pos="277 178 63 24" buttonText="Reset"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="b6406b79fec0442a" memberName="label7" virtualName=""
-         explicitFocusOrder="0" pos="263 112 96 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="292 130 96 24" edTextCol="ff000000"
          edBkgCol="0" labelText="(Active High)" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="fd492b223f17bf03" memberName="label8" virtualName=""
-         explicitFocusOrder="0" pos="592 148 40 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="621 166 40 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Low" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="72cd6762c5446d8e" memberName="label9" virtualName=""
-         explicitFocusOrder="0" pos="662 148 40 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="691 166 40 24" edTextCol="ff000000"
          edBkgCol="0" labelText="High" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <TOGGLEBUTTON name="amp toggle button" id="52afbea038eb88e6" memberName="ampToggle"
-                virtualName="" explicitFocusOrder="0" pos="43 262 136 24" buttonText="Audio Amp Power"
+                virtualName="" explicitFocusOrder="0" pos="59 280 136 24" buttonText="Audio Amp Power"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
+  <LABEL name="new label" id="5a682e7a8a3d958d" memberName="label10" virtualName=""
+         explicitFocusOrder="0" pos="243 241 150 24" textCol="fffffdfd"
+         edTextCol="ff000000" edBkgCol="0" labelText="Init File Content:"
+         editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
+         fontname="Default font" fontsize="15" bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
