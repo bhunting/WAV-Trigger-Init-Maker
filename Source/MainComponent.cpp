@@ -33,7 +33,7 @@
 MainComponent::MainComponent ()
 {
     addAndMakeVisible (groupComponent3 = new GroupComponent ("new group",
-                                                             "Test COM Port (optional)"));
+                                                             "Trigger Test COM Port (optional)"));
     groupComponent3->setColour (GroupComponent::textColourId, Colours::white);
 
     addAndMakeVisible (groupComponent = new GroupComponent ("new group",
@@ -289,6 +289,7 @@ MainComponent::MainComponent ()
     addAndMakeVisible (testButton = new TextButton ("delete button"));
     testButton->setButtonText ("Test");
     testButton->addListener (this);
+    testButton->setColour (TextButton::buttonColourId, Colour (0xffd00009));
 
     addAndMakeVisible (portBox = new ComboBox ("new combo box"));
     portBox->setEditableText (false);
@@ -1007,7 +1008,7 @@ BEGIN_JUCER_METADATA
   <BACKGROUND backgroundColour="ff2a4dba"/>
   <GROUPCOMPONENT name="new group" id="242a01730ad6db8e" memberName="groupComponent3"
                   virtualName="" explicitFocusOrder="0" pos="243 240 526 76" textcol="ffffffff"
-                  title="Test COM Port (optional)"/>
+                  title="Trigger Test COM Port (optional)"/>
   <GROUPCOMPONENT name="new group" id="38c25bfaed540c9a" memberName="groupComponent"
                   virtualName="" explicitFocusOrder="0" pos="244 22 526 202" outlinecol="66000000"
                   textcol="ffffffff" title="Trigger Settings"/>
@@ -1157,8 +1158,8 @@ BEGIN_JUCER_METADATA
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Default font" fontsize="15" bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="delete button" id="4442e4119290b378" memberName="testButton"
-              virtualName="" explicitFocusOrder="0" pos="672 176 63 24" buttonText="Test"
-              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+              virtualName="" explicitFocusOrder="0" pos="672 176 63 24" bgColOff="ffd00009"
+              buttonText="Test" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <COMBOBOX name="new combo box" id="c435d1c5f7439ac0" memberName="portBox"
             virtualName="" explicitFocusOrder="0" pos="323 272 208 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>

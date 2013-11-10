@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-   Serial COM Utility application in JUCE
+   WAV Trigger Init File Maker application in JUCE
    Copyright 2008 by Robertsonics.
 
   ==============================================================================
@@ -21,7 +21,7 @@ class InitUtilWindow  : public DocumentWindow
 public:
     //==============================================================================
     InitUtilWindow()
-        : DocumentWindow ("Robertsonics WAV Trigger Init File Maker Utility v0.20",
+        : DocumentWindow ("Robertsonics WAV Trigger Init File Maker Utility v0.21",
                           Colours::lightgrey,
                           DocumentWindow::allButtons,
                           true)

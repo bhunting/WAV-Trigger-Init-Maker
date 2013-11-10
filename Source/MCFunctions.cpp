@@ -300,7 +300,7 @@ StringArray tokens;
 			highText->setText("");
 	}
 
-	// Enable/Disable controls according to new settings:
+	// Enable/Disable controls according to these settings:
 
 	t = typeBox->getSelectedId();
 	i = functionBox->getSelectedId();
