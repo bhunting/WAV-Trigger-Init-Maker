@@ -22,7 +22,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "Trigger.h"
+#include "Communicator.h"
 //[/Headers]
 
 
@@ -55,6 +55,7 @@ public:
 	int findTrigger(int t);
 	bool insertTriggerString(void);
 	String buildTriggerDesc(void);
+	bool testTrigger(void);
 	bool parseTriggerDesc(String tStr);
 	void deleteInitString(int n);
 	void updateInitWindow(void);
@@ -76,9 +77,14 @@ private:
 
 	StringArray mInitStrings;
 
+	Communicator *pCom;		// Our Communicator
+	bool m_portOpenFlag;	// port open flag
+	int m_portBoxItem;		// Current portBox item index
+
     //[/UserVariables]
 
     //==============================================================================
+    ScopedPointer<GroupComponent> groupComponent3;
     ScopedPointer<GroupComponent> groupComponent;
     ScopedPointer<TextButton> quitButton;
     ScopedPointer<Label> statusBar;
@@ -118,6 +124,11 @@ private:
     ScopedPointer<Label> label9;
     ScopedPointer<ToggleButton> ampToggle;
     ScopedPointer<Label> label10;
+    ScopedPointer<TextButton> testButton;
+    ScopedPointer<ComboBox> portBox;
+    ScopedPointer<Label> label11;
+    ScopedPointer<ComboBox> testBaudBox;
+    ScopedPointer<Label> label12;
 
 
     //==============================================================================

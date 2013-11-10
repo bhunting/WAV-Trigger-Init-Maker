@@ -57,6 +57,14 @@
   </EXPORTFORMATS>
   <MAINGROUP id="a0m6ZvX1F" name="WT-InitMaker">
     <GROUP id="GVpTv8yA5" name="Source">
+      <FILE id="YpnTDb" name="Commands.h" compile="0" resource="0" file="Source/Commands.h"/>
+      <FILE id="W3k3gN" name="Communicator.cpp" compile="1" resource="0"
+            file="Source/Communicator.cpp"/>
+      <FILE id="MrKlS9" name="Communicator.h" compile="0" resource="0" file="Source/Communicator.h"/>
+      <FILE id="hYoeTQ" name="mac_Serial.cpp" compile="1" resource="0" file="Source/mac_Serial.cpp"/>
+      <FILE id="eJf5V0" name="Serial.h" compile="0" resource="0" file="Source/Serial.h"/>
+      <FILE id="YEfF35" name="win32_Serial.cpp" compile="1" resource="0"
+            file="Source/win32_Serial.cpp"/>
       <FILE id="wm1yCLKYK" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="Ir0rGDFpT" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>

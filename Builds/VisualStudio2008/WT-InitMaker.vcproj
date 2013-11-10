@@ -130,6 +130,12 @@
   <Files>
     <Filter Name="WT-InitMaker">
       <Filter Name="Source">
+        <File RelativePath="..\..\Source\Commands.h"/>
+        <File RelativePath="..\..\Source\Communicator.cpp"/>
+        <File RelativePath="..\..\Source\Communicator.h"/>
+        <File RelativePath="..\..\Source\mac_Serial.cpp"/>
+        <File RelativePath="..\..\Source\Serial.h"/>
+        <File RelativePath="..\..\Source\win32_Serial.cpp"/>
         <File RelativePath="..\..\Source\Main.cpp"/>
         <File RelativePath="..\..\Source\MainComponent.cpp"/>
         <File RelativePath="..\..\Source\MainComponent.h"/>

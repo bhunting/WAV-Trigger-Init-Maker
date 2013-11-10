@@ -21,30 +21,33 @@
 // resetTrigger(): Restore the Trigger settings to default
 void MainComponent::resetTrigger(void)
 {
-	interfaceBox->setSelectedId(1);
-	functionBox->setSelectedId(1);
-	typeBox->setSelectedId(1);
+	interfaceBox->setSelectedId(1, dontSendNotification);
+	functionBox->setSelectedId(1, dontSendNotification);
+	typeBox->setSelectedId(1, dontSendNotification);
 	invertToggle->setToggleState(false, dontSendNotification);
 	retriggerToggle->setToggleState(true, dontSendNotification);
 	polyToggle->setToggleState(true, dontSendNotification);
 	lowText->setText("", dontSendNotification);
+	lowText->setEnabled(false);
 	highText->setText("", dontSendNotification);
+	highText->setEnabled(false);
 }
 
 // **************************************************************************
 // reset(): Reset everything to default, clear the edit window.
 void MainComponent::reset(void)
 {
-	sampleRateBox->setSelectedId(3);
-	baudBox->setSelectedId(6);
+	sampleRateBox->setSelectedId(3, dontSendNotification);
+	baudBox->setSelectedId(6, dontSendNotification);
 	volSlider->setValue(0.0, dontSendNotification);
 	ampToggle->setToggleState(true, dontSendNotification);
-	triggerBox->setSelectedId(1);
+	triggerBox->setSelectedId(1, dontSendNotification);
 	resetTrigger();
 
 	addButton->setEnabled(true);
 	updateButton->setEnabled(false);
 	deleteButton->setEnabled(false);
+	testButton->setEnabled(false);
 
 	mInitStrings.clear();
 	mInitStrings.add("********************************************************************");
@@ -224,14 +227,14 @@ StringArray tokens;
 	t = tokens[0].getIntValue();
 	if ((t < 0) || (t > 16))
 		return false;
-	triggerBox->setSelectedId(t);
+	triggerBox->setSelectedId(t, dontSendNotification);
 	resetTrigger();
 
 	// Read and set the hardware interface type
 	if (n > 1) {
 		i = tokens[1].getIntValue();
 		if ((i > 0) && (i <= interfaceBox->getNumItems()))
-			interfaceBox->setSelectedId(i);
+			interfaceBox->setSelectedId(i, dontSendNotification);
 	}
 
 	// Read and set the invert toggle
@@ -247,7 +250,7 @@ StringArray tokens;
 	if (n > 3) {
 		i = tokens[3].getIntValue();
 		if ((i > 0) && (i <= typeBox->getNumItems()))
-			typeBox->setSelectedId(i);
+			typeBox->setSelectedId(i, dontSendNotification);
 	}
 
 	// Read and set the retrigger toggle
@@ -272,7 +275,7 @@ StringArray tokens;
 	if (n > 6) {
 		i = tokens[6].getIntValue();
 		if ((i > 0) && (i <= functionBox->getNumItems()))
-			functionBox->setSelectedId(i);
+			functionBox->setSelectedId(i, dontSendNotification);
 	}
 
 	// Read and fill in the track range
@@ -295,6 +298,30 @@ StringArray tokens;
 		}
 		else
 			highText->setText("");
+	}
+
+	// Enable/Disable controls according to new settings:
+
+	t = typeBox->getSelectedId();
+	i = functionBox->getSelectedId();
+
+	if ((t == 2) || (i > 4))
+		retriggerToggle->setEnabled(false);
+	else
+		retriggerToggle->setEnabled(true);
+
+	if (i < 5)
+		polyToggle->setEnabled(true);
+	else
+		polyToggle->setEnabled(false);
+
+	if ((i == 0) || (i > 7)) {
+		lowText->setEnabled(false);
+		highText->setEnabled(false);
+	}
+	else {
+		lowText->setEnabled(true);
+		highText->setEnabled(true);
 	}
 
 	return true;
@@ -342,4 +369,28 @@ String line;
 	}
 }
 
+
+// **************************************************************************
+// testTrigger(): Send the current settings to the Communicator
+bool MainComponent::testTrigger(void)
+{
+
+int trigNum;
+String s;
+
+	trigNum = triggerBox->getSelectedId() - 1;
+	TRIGGER_SETTINGS ts;
+	ts.hardware = interfaceBox->getSelectedId();
+	ts.invert = invertToggle->getToggleState();
+	ts.type = typeBox->getSelectedId();
+	ts.retrigger = retriggerToggle->getToggleState();
+	ts.polyphonic = polyToggle->getToggleState();
+	ts.function = functionBox->getSelectedId();
+	s = lowText->getText();
+	ts.first = s.getIntValue();
+	s = highText->getText();
+	ts.last = s.getIntValue();
+	pCom->setTrigger(&ts, trigNum);
+	return true;
+}
 

@@ -49,6 +49,9 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS := \
+  $(OBJDIR)/Communicator_997ca25e.o \
+  $(OBJDIR)/mac_Serial_b11226d.o \
+  $(OBJDIR)/win32_Serial_1d52f401.o \
   $(OBJDIR)/Main_90ebc5c2.o \
   $(OBJDIR)/MainComponent_a6ffb4a5.o \
   $(OBJDIR)/juce_core_dc809e2d.o \
@@ -76,6 +79,21 @@ clean:
 strip:
 	@echo Stripping WT-InitMaker
 	-@strip --strip-unneeded $(OUTDIR)/$(TARGET)
+
+$(OBJDIR)/Communicator_997ca25e.o: ../../Source/Communicator.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling Communicator.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/mac_Serial_b11226d.o: ../../Source/mac_Serial.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling mac_Serial.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/win32_Serial_1d52f401.o: ../../Source/win32_Serial.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling win32_Serial.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/Main_90ebc5c2.o: ../../Source/Main.cpp
 	-@mkdir -p $(OBJDIR)
