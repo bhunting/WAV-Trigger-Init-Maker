@@ -689,8 +689,8 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 				mInitStrings.remove(n);
 		}
 		// Add an entry to enable if toggle state is true
-		if (!ampToggle->getToggleState()) {
-			String bStr = "#SPKR 0";
+		if (ampToggle->getToggleState()) {
+			String bStr = "#SPKR 1";
 			bStr += newLine;
 			mInitStrings.insert(0, bStr);
 		}
