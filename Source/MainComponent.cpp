@@ -184,10 +184,11 @@ MainComponent::MainComponent ()
     label22->setColour (TextEditor::textColourId, Colours::black);
     label22->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (linkButton = new HyperlinkButton ("robertsonics.com",
-                                                         URL ("http://www.robertsonics.com/makerjam/support/")));
-    linkButton->setTooltip ("http://www.robertsonics.com/makerjam/support/");
-    linkButton->setButtonText ("robertsonics.com");
+    addAndMakeVisible (linkButton = new HyperlinkButton ("Help",
+                                                         URL ("http://robertsonics.com/wav-trigger-online-user-guide/")));
+    linkButton->setTooltip ("http://robertsonics.com/wav-trigger-online-user-guide/");
+    linkButton->setButtonText ("Help");
+    linkButton->addListener (this);
     linkButton->setColour (HyperlinkButton::textColourId, Colours::white);
 
     addAndMakeVisible (initText = new TextEditor ("init text editor"));
@@ -537,7 +538,7 @@ void MainComponent::resized()
     label21->setBounds (58, 107, 128, 24);
     volSlider->setBounds (56, 197, 140, 48);
     label22->setBounds (58, 173, 150, 24);
-    linkButton->setBounds (16, 552, 150, 24);
+    linkButton->setBounds (16, 552, 96, 24);
     initText->setBounds (248, 352, 520, 218);
     triggerBox->setBounds (277, 68, 56, 24);
     interfaceBox->setBounds (350, 68, 143, 24);
@@ -615,6 +616,11 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 		}
 
         //[/UserButtonCode_saveAsButton]
+    }
+    else if (buttonThatWasClicked == linkButton)
+    {
+        //[UserButtonCode_linkButton] -- add your button handler code here..
+        //[/UserButtonCode_linkButton]
     }
     else if (buttonThatWasClicked == addButton)
     {
@@ -1096,9 +1102,9 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <HYPERLINKBUTTON name="link button" id="f202f29b31c62ae" memberName="linkButton"
-                   virtualName="" explicitFocusOrder="0" pos="16 552 150 24" tooltip="http://www.robertsonics.com/makerjam/support/"
-                   textCol="ffffffff" buttonText="robertsonics.com" connectedEdges="0"
-                   needsCallback="0" radioGroupId="0" url="http://www.robertsonics.com/makerjam/support/"/>
+                   virtualName="" explicitFocusOrder="0" pos="16 552 96 24" tooltip="http://robertsonics.com/wav-trigger-online-user-guide/"
+                   textCol="ffffffff" buttonText="Help" connectedEdges="0" needsCallback="1"
+                   radioGroupId="0" url="http://robertsonics.com/wav-trigger-online-user-guide/"/>
   <TEXTEDITOR name="init text editor" id="affceb0f94323c59" memberName="initText"
               virtualName="" explicitFocusOrder="0" pos="248 352 520 218" initialText=""
               multiline="1" retKeyStartsLine="1" readonly="0" scrollbars="1"
