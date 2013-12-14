@@ -119,7 +119,6 @@ private:
     ScopedPointer<Label> label6;
     ScopedPointer<ToggleButton> retriggerToggle;
     ScopedPointer<TextButton> resetButton;
-    ScopedPointer<Label> label7;
     ScopedPointer<Label> label8;
     ScopedPointer<Label> label9;
     ScopedPointer<ToggleButton> ampToggle;
@@ -129,6 +128,9 @@ private:
     ScopedPointer<Label> label11;
     ScopedPointer<ComboBox> testBaudBox;
     ScopedPointer<Label> label12;
+    ScopedPointer<Slider> trigVolSlider;
+    ScopedPointer<Label> label7;
+    ScopedPointer<TextButton> stopButton;
 
 
     //==============================================================================

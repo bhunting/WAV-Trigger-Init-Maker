@@ -173,11 +173,11 @@ MainComponent::MainComponent ()
     addAndMakeVisible (volSlider = new Slider ("volume slider"));
     volSlider->setRange (-20, 10, 1);
     volSlider->setSliderStyle (Slider::LinearHorizontal);
-    volSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    volSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 40, 20);
     volSlider->addListener (this);
 
     addAndMakeVisible (label22 = new Label ("new label",
-                                            "Initial Volume (dB)"));
+                                            "Output Volume (dB)"));
     label22->setFont (Font (15.00f, Font::plain));
     label22->setJustificationType (Justification::centredLeft);
     label22->setEditable (false, false, false);
@@ -250,14 +250,6 @@ MainComponent::MainComponent ()
     resetButton->setButtonText ("Reset");
     resetButton->addListener (this);
 
-    addAndMakeVisible (label7 = new Label ("new label",
-                                           "(Active High)"));
-    label7->setFont (Font (15.00f, Font::plain));
-    label7->setJustificationType (Justification::centredLeft);
-    label7->setEditable (false, false, false);
-    label7->setColour (TextEditor::textColourId, Colours::black);
-    label7->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
     addAndMakeVisible (label8 = new Label ("new label",
                                            "Low"));
     label8->setFont (Font (15.00f, Font::plain));
@@ -322,11 +314,29 @@ MainComponent::MainComponent ()
     label12->setColour (TextEditor::textColourId, Colours::black);
     label12->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
+    addAndMakeVisible (trigVolSlider = new Slider ("trig volume slider"));
+    trigVolSlider->setRange (-20, 10, 1);
+    trigVolSlider->setSliderStyle (Slider::LinearHorizontal);
+    trigVolSlider->setTextBoxStyle (Slider::TextBoxRight, false, 40, 20);
+    trigVolSlider->addListener (this);
+
+    addAndMakeVisible (label7 = new Label ("new label",
+                                           "Trigger Volume (dB)"));
+    label7->setFont (Font (15.00f, Font::plain));
+    label7->setJustificationType (Justification::centredLeft);
+    label7->setEditable (false, false, false);
+    label7->setColour (TextEditor::textColourId, Colours::black);
+    label7->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (stopButton = new TextButton ("stop button"));
+    stopButton->setButtonText ("StopAll");
+    stopButton->addListener (this);
+
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (800, 620);
+    setSize (800, 660);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -422,10 +432,12 @@ MainComponent::MainComponent ()
 		if (pCom->openPort(pN)) {
 			statusBar->setText("  COM port opened successfully", dontSendNotification);
 			m_portOpenFlag = true;
+			stopButton->setEnabled(true);
 		}
 		else {
 			statusBar->setText("  COM port could not be opened!", dontSendNotification);
 			m_portOpenFlag = false;
+			stopButton->setEnabled(false);
 		}
 	}
 	else {
@@ -434,6 +446,7 @@ MainComponent::MainComponent ()
 		portBox->setSelectedId(m_portBoxItem);
 		statusBar->setText("  No compatible COM ports found", dontSendNotification);
 		m_portOpenFlag = false;
+		stopButton->setEnabled(false);
 	}
 
     //[/Constructor]
@@ -484,7 +497,6 @@ MainComponent::~MainComponent()
     label6 = nullptr;
     retriggerToggle = nullptr;
     resetButton = nullptr;
-    label7 = nullptr;
     label8 = nullptr;
     label9 = nullptr;
     ampToggle = nullptr;
@@ -494,6 +506,9 @@ MainComponent::~MainComponent()
     label11 = nullptr;
     testBaudBox = nullptr;
     label12 = nullptr;
+    trigVolSlider = nullptr;
+    label7 = nullptr;
+    stopButton = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -514,9 +529,9 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    groupComponent3->setBounds (243, 240, 526, 76);
-    groupComponent->setBounds (244, 22, 526, 202);
-    quitButton->setBounds (32, 512, 63, 24);
+    groupComponent3->setBounds (243, 274, 526, 76);
+    groupComponent->setBounds (244, 22, 526, 234);
+    quitButton->setBounds (32, 546, 63, 24);
     statusBar->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
     functionBox->setBounds (624, 68, 112, 24);
     typeBox->setBounds (510, 68, 98, 24);
@@ -524,10 +539,10 @@ void MainComponent::resized()
     polyToggle->setBounds (504, 111, 96, 24);
     lowText->setBounds (624, 119, 39, 24);
     highText->setBounds (696, 119, 39, 24);
-    newButton->setBounds (32, 352, 63, 24);
-    saveButton->setBounds (32, 432, 63, 24);
-    openButton->setBounds (32, 392, 63, 24);
-    saveAsButton->setBounds (32, 472, 63, 24);
+    newButton->setBounds (32, 386, 63, 24);
+    saveButton->setBounds (32, 466, 63, 24);
+    openButton->setBounds (32, 426, 63, 24);
+    saveAsButton->setBounds (32, 506, 63, 24);
     groupComponent2->setBounds (32, 22, 184, 294);
     label2->setBounds (618, 45, 63, 24);
     label3->setBounds (505, 44, 47, 24);
@@ -538,27 +553,29 @@ void MainComponent::resized()
     label21->setBounds (58, 107, 128, 24);
     volSlider->setBounds (56, 197, 140, 48);
     label22->setBounds (58, 173, 150, 24);
-    linkButton->setBounds (16, 552, 96, 24);
-    initText->setBounds (248, 352, 520, 218);
+    linkButton->setBounds (16, 586, 96, 24);
+    initText->setBounds (248, 388, 520, 218);
     triggerBox->setBounds (277, 68, 56, 24);
     interfaceBox->setBounds (350, 68, 143, 24);
-    addButton->setBounds (360, 176, 63, 24);
-    updateButton->setBounds (440, 176, 63, 24);
-    deleteButton->setBounds (520, 176, 63, 24);
+    addButton->setBounds (356, 207, 63, 24);
+    updateButton->setBounds (436, 207, 63, 24);
+    deleteButton->setBounds (516, 207, 63, 24);
     label5->setBounds (271, 44, 56, 24);
     label6->setBounds (344, 44, 141, 24);
     retriggerToggle->setBounds (392, 111, 95, 24);
-    resetButton->setBounds (280, 176, 63, 24);
-    label7->setBounds (289, 127, 96, 24);
+    resetButton->setBounds (276, 207, 63, 24);
     label8->setBounds (619, 141, 40, 24);
     label9->setBounds (691, 142, 40, 24);
     ampToggle->setBounds (59, 276, 136, 24);
-    label10->setBounds (243, 325, 125, 24);
-    testButton->setBounds (672, 176, 63, 24);
-    portBox->setBounds (323, 272, 208, 24);
-    label11->setBounds (275, 272, 48, 24);
-    testBaudBox->setBounds (632, 272, 104, 24);
-    label12->setBounds (559, 273, 72, 24);
+    label10->setBounds (243, 361, 125, 24);
+    testButton->setBounds (596, 208, 63, 24);
+    portBox->setBounds (323, 306, 208, 24);
+    label11->setBounds (275, 306, 48, 24);
+    testBaudBox->setBounds (632, 306, 104, 24);
+    label12->setBounds (559, 307, 72, 24);
+    trigVolSlider->setBounds (408, 153, 150, 24);
+    label7->setBounds (274, 152, 150, 24);
+    stopButton->setBounds (675, 208, 63, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -608,8 +625,8 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
         FileChooser fc ("Choose a file to save...",
 				File::getCurrentWorkingDirectory().getChildFile("wavtrigr.ini"),
-                "ini",
-                nullptr);
+                "*.ini",
+                true);
         if (fc.browseForFileToSave (true)) {
 			File file = fc.getResult();
 			save(file);
@@ -712,6 +729,14 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
         //[/UserButtonCode_testButton]
     }
+    else if (buttonThatWasClicked == stopButton)
+    {
+        //[UserButtonCode_stopButton] -- add your button handler code here..
+
+		pCom->stopAll();
+
+        //[/UserButtonCode_stopButton]
+    }
 
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
@@ -739,6 +764,8 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 				polyToggle->setToggleState(true, dontSendNotification);
 				typeBox->setSelectedId(1);
 				typeBox->setEnabled(true);
+				trigVolSlider->setValue(0);
+				trigVolSlider->setEnabled(true);
 			break;
 			case 2: // Next
 			case 3: // Previous
@@ -753,6 +780,8 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 				polyToggle->setToggleState(true, dontSendNotification);
 				typeBox->setSelectedId(1);
 				typeBox->setEnabled(true);
+				trigVolSlider->setValue(0);
+				trigVolSlider->setEnabled(true);
 			break;
 			case 5:	// Pause
 			case 6: // Resume
@@ -766,6 +795,8 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 				polyToggle->setToggleState(false, dontSendNotification);
 				typeBox->setSelectedId(1);
 				typeBox->setEnabled(true);
+				trigVolSlider->setValue(0);
+				trigVolSlider->setEnabled(false);
 			break;
 			case 7:	// Stop
 				lowText->setText("1", dontSendNotification);
@@ -778,6 +809,8 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 				polyToggle->setToggleState(false, dontSendNotification);
 				typeBox->setSelectedId(1);
 				typeBox->setEnabled(true);
+				trigVolSlider->setValue(0);
+				trigVolSlider->setEnabled(false);
 			break;
 			case 8:	// Volume Up
 			case 9: // Volume Down
@@ -791,6 +824,8 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 				polyToggle->setToggleState(false, dontSendNotification);
 				typeBox->setSelectedId(1);
 				typeBox->setEnabled(false);
+				trigVolSlider->setValue(0);
+				trigVolSlider->setEnabled(false);
 			break;
 			default:
 			break;
@@ -930,11 +965,13 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 			if (pCom->openPort(pN)) {
 				statusBar->setText("  COM port opened successfully", dontSendNotification);
 				m_portOpenFlag = true;
+				stopButton->setEnabled(true);
 			}
 			else {
 				statusBar->setText("  COM port could not be opened!", dontSendNotification);
 				m_portOpenFlag = false;
 				testButton->setEnabled(false);
+				stopButton->setEnabled(false);
 			}
 		}
 
@@ -978,6 +1015,11 @@ void MainComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 
         //[/UserSliderCode_volSlider]
     }
+    else if (sliderThatWasMoved == trigVolSlider)
+    {
+        //[UserSliderCode_trigVolSlider] -- add your slider handling code here..
+        //[/UserSliderCode_trigVolSlider]
+    }
 
     //[UsersliderValueChanged_Post]
     //[/UsersliderValueChanged_Post]
@@ -1010,16 +1052,16 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component, public ChangeListener" constructorParams=""
                  variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
-                 overlayOpacity="0.330" fixedSize="1" initialWidth="800" initialHeight="620">
+                 overlayOpacity="0.330" fixedSize="1" initialWidth="800" initialHeight="660">
   <BACKGROUND backgroundColour="ff2a4dba"/>
   <GROUPCOMPONENT name="new group" id="242a01730ad6db8e" memberName="groupComponent3"
-                  virtualName="" explicitFocusOrder="0" pos="243 240 526 76" textcol="ffffffff"
+                  virtualName="" explicitFocusOrder="0" pos="243 274 526 76" textcol="ffffffff"
                   title="Trigger Test COM Port (optional)"/>
   <GROUPCOMPONENT name="new group" id="38c25bfaed540c9a" memberName="groupComponent"
-                  virtualName="" explicitFocusOrder="0" pos="244 22 526 202" outlinecol="66000000"
+                  virtualName="" explicitFocusOrder="0" pos="244 22 526 234" outlinecol="66000000"
                   textcol="ffffffff" title="Trigger Settings"/>
   <TEXTBUTTON name="" id="bcf4f7b0888effe5" memberName="quitButton" virtualName=""
-              explicitFocusOrder="0" pos="32 512 63 24" buttonText="Quit" connectedEdges="0"
+              explicitFocusOrder="0" pos="32 546 63 24" buttonText="Quit" connectedEdges="0"
               needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="ef8d15cc5a4b63c3" memberName="statusBar"
          virtualName="" explicitFocusOrder="0" pos="0 0Rr 100% 24" bkgCol="ff8da3da"
@@ -1047,16 +1089,16 @@ BEGIN_JUCER_METADATA
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="0"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="b85453e71d7e819a" memberName="newButton"
-              virtualName="" explicitFocusOrder="0" pos="32 352 63 24" buttonText="New"
+              virtualName="" explicitFocusOrder="0" pos="32 386 63 24" buttonText="New"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save button" id="7f44c667d204efa4" memberName="saveButton"
-              virtualName="" explicitFocusOrder="0" pos="32 432 63 24" buttonText="Save"
+              virtualName="" explicitFocusOrder="0" pos="32 466 63 24" buttonText="Save"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="open button" id="aff16e2440c1e77e" memberName="openButton"
-              virtualName="" explicitFocusOrder="0" pos="32 392 63 24" buttonText="Open"
+              virtualName="" explicitFocusOrder="0" pos="32 426 63 24" buttonText="Open"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save as button" id="36951dd779d924d0" memberName="saveAsButton"
-              virtualName="" explicitFocusOrder="0" pos="32 472 63 24" buttonText="Save As"
+              virtualName="" explicitFocusOrder="0" pos="32 506 63 24" buttonText="Save As"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <GROUPCOMPONENT name="new group" id="6ec7de23acb7bc6f" memberName="groupComponent2"
                   virtualName="" explicitFocusOrder="0" pos="32 22 184 294" textcol="ffffffff"
@@ -1095,18 +1137,18 @@ BEGIN_JUCER_METADATA
   <SLIDER name="volume slider" id="fbfedd66eca0907d" memberName="volSlider"
           virtualName="" explicitFocusOrder="0" pos="56 197 140 48" min="-20"
           max="10" int="1" style="LinearHorizontal" textBoxPos="TextBoxBelow"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="new label" id="8236b56510d8f8c8" memberName="label22" virtualName=""
          explicitFocusOrder="0" pos="58 173 150 24" edTextCol="ff000000"
-         edBkgCol="0" labelText="Initial Volume (dB)" editableSingleClick="0"
+         edBkgCol="0" labelText="Output Volume (dB)" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <HYPERLINKBUTTON name="link button" id="f202f29b31c62ae" memberName="linkButton"
-                   virtualName="" explicitFocusOrder="0" pos="16 552 96 24" tooltip="http://robertsonics.com/wav-trigger-online-user-guide/"
+                   virtualName="" explicitFocusOrder="0" pos="16 586 96 24" tooltip="http://robertsonics.com/wav-trigger-online-user-guide/"
                    textCol="ffffffff" buttonText="Help" connectedEdges="0" needsCallback="1"
                    radioGroupId="0" url="http://robertsonics.com/wav-trigger-online-user-guide/"/>
   <TEXTEDITOR name="init text editor" id="affceb0f94323c59" memberName="initText"
-              virtualName="" explicitFocusOrder="0" pos="248 352 520 218" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="248 388 520 218" initialText=""
               multiline="1" retKeyStartsLine="1" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <COMBOBOX name="trigger combo box" id="254229b66c221ce9" memberName="triggerBox"
@@ -1116,13 +1158,13 @@ BEGIN_JUCER_METADATA
             virtualName="" explicitFocusOrder="0" pos="350 68 143 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <TEXTBUTTON name="add button" id="82c93bdd5a7a904" memberName="addButton"
-              virtualName="" explicitFocusOrder="0" pos="360 176 63 24" buttonText="Add"
+              virtualName="" explicitFocusOrder="0" pos="356 207 63 24" buttonText="Add"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="update button" id="1bccddea64d1188d" memberName="updateButton"
-              virtualName="" explicitFocusOrder="0" pos="440 176 63 24" buttonText="Update"
+              virtualName="" explicitFocusOrder="0" pos="436 207 63 24" buttonText="Update"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="delete button" id="59540029ea4972fb" memberName="deleteButton"
-              virtualName="" explicitFocusOrder="0" pos="520 176 63 24" buttonText="Delete"
+              virtualName="" explicitFocusOrder="0" pos="516 207 63 24" buttonText="Delete"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="fa287ff2e92f4a56" memberName="label5" virtualName=""
          explicitFocusOrder="0" pos="271 44 56 24" edTextCol="ff000000"
@@ -1138,13 +1180,8 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="392 111 95 24" buttonText="Re-Triggers"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TEXTBUTTON name="reset button" id="4dc7d5288c0df2c4" memberName="resetButton"
-              virtualName="" explicitFocusOrder="0" pos="280 176 63 24" buttonText="Reset"
+              virtualName="" explicitFocusOrder="0" pos="276 207 63 24" buttonText="Reset"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
-  <LABEL name="new label" id="b6406b79fec0442a" memberName="label7" virtualName=""
-         explicitFocusOrder="0" pos="289 127 96 24" edTextCol="ff000000"
-         edBkgCol="0" labelText="(Active High)" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="15" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="fd492b223f17bf03" memberName="label8" virtualName=""
          explicitFocusOrder="0" pos="619 141 40 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Low" editableSingleClick="0" editableDoubleClick="0"
@@ -1159,29 +1196,41 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="59 276 136 24" buttonText="Audio Amp Power"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <LABEL name="new label" id="5a682e7a8a3d958d" memberName="label10" virtualName=""
-         explicitFocusOrder="0" pos="243 325 125 24" textCol="fffffdfd"
+         explicitFocusOrder="0" pos="243 361 125 24" textCol="fffffdfd"
          edTextCol="ff000000" edBkgCol="0" labelText="Init File Contents:"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Default font" fontsize="15" bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="delete button" id="4442e4119290b378" memberName="testButton"
-              virtualName="" explicitFocusOrder="0" pos="672 176 63 24" bgColOff="ffd00009"
+              virtualName="" explicitFocusOrder="0" pos="596 208 63 24" bgColOff="ffd00009"
               buttonText="Test" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <COMBOBOX name="new combo box" id="c435d1c5f7439ac0" memberName="portBox"
-            virtualName="" explicitFocusOrder="0" pos="323 272 208 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="323 306 208 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="7379b2c212d86ee1" memberName="label11" virtualName=""
-         explicitFocusOrder="0" pos="275 272 48 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="275 306 48 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Port:" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <COMBOBOX name="new combo box" id="b2a56f4745f2174c" memberName="testBaudBox"
-            virtualName="" explicitFocusOrder="0" pos="632 272 104 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="632 306 104 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="e8953b892beb4114" memberName="label12" virtualName=""
-         explicitFocusOrder="0" pos="559 273 72 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="559 307 72 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Baudrate:" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
+  <SLIDER name="trig volume slider" id="68756f4fad130222" memberName="trigVolSlider"
+          virtualName="" explicitFocusOrder="0" pos="408 153 150 24" min="-20"
+          max="10" int="1" style="LinearHorizontal" textBoxPos="TextBoxRight"
+          textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
+  <LABEL name="new label" id="ba8e00fa1d703ed8" memberName="label7" virtualName=""
+         explicitFocusOrder="0" pos="274 152 150 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Trigger Volume (dB)" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="0" italic="0" justification="33"/>
+  <TEXTBUTTON name="stop button" id="4b667057695aa760" memberName="stopButton"
+              virtualName="" explicitFocusOrder="0" pos="675 208 63 24" buttonText="StopAll"
+              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

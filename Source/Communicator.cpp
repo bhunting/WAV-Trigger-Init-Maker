@@ -270,7 +270,7 @@ unsigned char xbuf[24];
 	// First, 
 	xbuf[0] = 0xF0;
 	xbuf[1] = 0xaa;
-	xbuf[2] = 16;
+	xbuf[2] = 17;
 	xbuf[3] = TRIGGER_SET;
 	xbuf[4] = (unsigned char)trigNum;
 	xbuf[5] = (unsigned char)tsPtr->hardware;
@@ -279,12 +279,13 @@ unsigned char xbuf[24];
 	xbuf[8] = (unsigned char)tsPtr->retrigger;
 	xbuf[9] = (unsigned char)tsPtr->polyphonic;
 	xbuf[10] = (unsigned char)tsPtr->function;
-	xbuf[11] = (unsigned char)tsPtr->first;
-	xbuf[12] = (unsigned char)(tsPtr->first >> 8);
-	xbuf[13] = (unsigned char)tsPtr->last;
-	xbuf[14] = (unsigned char)(tsPtr->last >> 8);
-	xbuf[15] = 0x55;
-	pOutStream->write(xbuf, 16);
+	xbuf[11] = (unsigned char)tsPtr->volume;
+	xbuf[12] = (unsigned char)tsPtr->first;
+	xbuf[13] = (unsigned char)(tsPtr->first >> 8);
+	xbuf[14] = (unsigned char)tsPtr->last;
+	xbuf[15] = (unsigned char)(tsPtr->last >> 8);
+	xbuf[16] = 0x55;
+	pOutStream->write(xbuf, 17);
 	return true;
 }
 

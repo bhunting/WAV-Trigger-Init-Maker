@@ -27,6 +27,7 @@ typedef struct {
 	bool retrigger;
 	bool polyphonic;
 	int function;
+	int volume;
 	int first;
 	int last;
 } TRIGGER_SETTINGS;
