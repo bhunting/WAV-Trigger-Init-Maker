@@ -155,7 +155,7 @@ MainComponent::MainComponent ()
     sampleRateBox->addListener (this);
 
     addAndMakeVisible (label = new Label ("new label",
-                                          "Serial Baudrate"));
+                                          "Serial Comm."));
     label->setFont (Font (15.00f, Font::plain));
     label->setJustificationType (Justification::centredLeft);
     label->setEditable (false, false, false);
@@ -362,6 +362,7 @@ MainComponent::MainComponent ()
 	baudBox->addItem("19.2 kbps", 4);
 	baudBox->addItem("38.4 kbps", 5);
 	baudBox->addItem("57.6 kbps", 6);
+	baudBox->addItem("MIDI", 7);
 
 	sampleRateBox->addItem("11,025 Hz", 1);
 	sampleRateBox->addItem("22,050 Hz", 2);
@@ -547,9 +548,9 @@ void MainComponent::resized()
     label2->setBounds (618, 45, 63, 24);
     label3->setBounds (505, 44, 47, 24);
     label4->setBounds (619, 95, 87, 24);
-    baudBox->setBounds (61, 68, 128, 24);
+    baudBox->setBounds (62, 68, 128, 24);
     sampleRateBox->setBounds (62, 132, 128, 24);
-    label->setBounds (55, 43, 112, 24);
+    label->setBounds (57, 43, 105, 24);
     label21->setBounds (58, 107, 128, 24);
     volSlider->setBounds (56, 197, 140, 48);
     label22->setBounds (58, 173, 150, 24);
@@ -626,7 +627,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         FileChooser fc ("Choose a file to save...",
 				File::getCurrentWorkingDirectory().getChildFile("wavtrigr.ini"),
                 "*.ini",
-                true);
+                false);
         if (fc.browseForFileToSave (true)) {
 			File file = fc.getResult();
 			save(file);
@@ -858,9 +859,11 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 		for (int n = 0; n < mInitStrings.size(); n++) {
 			if (mInitStrings[n].startsWith("#BAUD"))
 				mInitStrings.remove(n);
+			if (mInitStrings[n].startsWith("#MIDI"))
+				mInitStrings.remove(n);
 		}
 		// Add an entry if not the default
-		if (baudBox->getSelectedId() != 6) {
+		if (baudBox->getSelectedId() < 6) {
 			String bStr = "#BAUD ";
 			switch (baudBox->getSelectedId()) {
 				case 1:
@@ -879,6 +882,11 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 					bStr += "38400";
 				break;
 			}
+			bStr += newLine;
+			mInitStrings.insert(0, bStr);
+		}
+		else if (baudBox->getSelectedId() == 7) {
+			String bStr = "#MIDI 1 ";
 			bStr += newLine;
 			mInitStrings.insert(0, bStr);
 		}
@@ -1119,14 +1127,14 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <COMBOBOX name="baud box" id="34072d5a8cd3a40e" memberName="baudBox" virtualName=""
-            explicitFocusOrder="0" pos="61 68 128 24" editable="0" layout="33"
+            explicitFocusOrder="0" pos="62 68 128 24" editable="0" layout="33"
             items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <COMBOBOX name="sample rate box" id="b1bacfa2afd6ee10" memberName="sampleRateBox"
             virtualName="" explicitFocusOrder="0" pos="62 132 128 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="b168245de12e2a99" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="55 43 112 24" edTextCol="ff000000"
-         edBkgCol="0" labelText="Serial Baudrate" editableSingleClick="0"
+         explicitFocusOrder="0" pos="57 43 105 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Serial Comm." editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="53a98ea4fee8c3f8" memberName="label21" virtualName=""

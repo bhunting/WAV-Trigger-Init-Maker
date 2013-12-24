@@ -21,7 +21,7 @@ class InitUtilWindow  : public DocumentWindow
 public:
     //==============================================================================
     InitUtilWindow()
-        : DocumentWindow ("Robertsonics WAV Trigger Init File Maker Utility v0.24",
+        : DocumentWindow ("Robertsonics WAV Trigger Init File Maker v1.00b",
                           Colours::lightgrey,
                           DocumentWindow::allButtons,
                           true)
