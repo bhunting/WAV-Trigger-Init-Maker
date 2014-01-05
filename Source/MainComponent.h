@@ -131,6 +131,7 @@ private:
     ScopedPointer<Slider> trigVolSlider;
     ScopedPointer<Label> label7;
     ScopedPointer<TextButton> stopButton;
+    ScopedPointer<TextButton> copyButton;
 
 
     //==============================================================================
