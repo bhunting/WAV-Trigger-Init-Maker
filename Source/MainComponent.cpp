@@ -373,10 +373,11 @@ MainComponent::MainComponent ()
 	sampleRateBox->addItem("44,100 Hz", 3);
 	sampleRateBox->setEnabled(false);
 
-	char buf[8];
+	String st;
 	for (int i = 1; i < 17; i++) {
-		_itoa_s(i,buf,8,10);
-		triggerBox->addItem(buf, i);
+		st = "";
+		st += i;
+		triggerBox->addItem(st.toStdString(), i);
 	}
 
 	interfaceBox->addItem("Contact Closure", 1);
