@@ -84,6 +84,7 @@ private:
     //[/UserVariables]
 
     //==============================================================================
+    ScopedPointer<GroupComponent> groupComponent4;
     ScopedPointer<GroupComponent> groupComponent3;
     ScopedPointer<GroupComponent> groupComponent;
     ScopedPointer<TextButton> quitButton;
@@ -132,6 +133,9 @@ private:
     ScopedPointer<Label> label7;
     ScopedPointer<TextButton> stopButton;
     ScopedPointer<TextButton> copyButton;
+    ScopedPointer<ToggleButton> velocityToggle;
+    ScopedPointer<Slider> releaseSlider;
+    ScopedPointer<Label> releaseText;
 
 
     //==============================================================================

@@ -32,6 +32,10 @@
 //==============================================================================
 MainComponent::MainComponent ()
 {
+    addAndMakeVisible (groupComponent4 = new GroupComponent ("new group",
+                                                             "MIDI"));
+    groupComponent4->setColour (GroupComponent::textColourId, Colours::white);
+
     addAndMakeVisible (groupComponent3 = new GroupComponent ("new group",
                                                              "Trigger Test COM Port (optional)"));
     groupComponent3->setColour (GroupComponent::textColourId, Colours::white);
@@ -336,6 +340,24 @@ MainComponent::MainComponent ()
     copyButton->setButtonText ("Copy");
     copyButton->addListener (this);
 
+    addAndMakeVisible (velocityToggle = new ToggleButton ("velocity toggle button"));
+    velocityToggle->setButtonText ("Disable Velocity");
+    velocityToggle->addListener (this);
+
+    addAndMakeVisible (releaseSlider = new Slider ("release slider"));
+    releaseSlider->setRange (0, 127, 1);
+    releaseSlider->setSliderStyle (Slider::LinearHorizontal);
+    releaseSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 40, 20);
+    releaseSlider->addListener (this);
+
+    addAndMakeVisible (releaseText = new Label ("new label",
+                                                "Default Release"));
+    releaseText->setFont (Font (15.00f, Font::plain));
+    releaseText->setJustificationType (Justification::centredLeft);
+    releaseText->setEditable (false, false, false);
+    releaseText->setColour (TextEditor::textColourId, Colours::black);
+    releaseText->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -392,6 +414,8 @@ MainComponent::MainComponent ()
 	functionBox->addItem("Stop", 7);
 	functionBox->addItem("Volume Up", 8);
 	functionBox->addItem("Volume Dn", 9);
+	functionBox->addItem("MIDI Bank Up", 10);
+	functionBox->addItem("MIDI Bank Dn", 11);
 
 	typeBox->addItem("Edge", 1);
 	typeBox->addItem("Level", 2);
@@ -468,6 +492,7 @@ MainComponent::~MainComponent()
 	}
     //[/Destructor_pre]
 
+    groupComponent4 = nullptr;
     groupComponent3 = nullptr;
     groupComponent = nullptr;
     quitButton = nullptr;
@@ -516,6 +541,9 @@ MainComponent::~MainComponent()
     label7 = nullptr;
     stopButton = nullptr;
     copyButton = nullptr;
+    velocityToggle = nullptr;
+    releaseSlider = nullptr;
+    releaseText = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -536,9 +564,10 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
+    groupComponent4->setBounds (32, 280, 184, 152);
     groupComponent3->setBounds (243, 260, 526, 76);
     groupComponent->setBounds (244, 16, 526, 234);
-    quitButton->setBounds (32, 515, 63, 24);
+    quitButton->setBounds (148, 520, 63, 24);
     statusBar->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
     functionBox->setBounds (624, 62, 112, 24);
     typeBox->setBounds (510, 62, 98, 24);
@@ -546,20 +575,20 @@ void MainComponent::resized()
     polyToggle->setBounds (504, 105, 96, 24);
     lowText->setBounds (624, 113, 39, 24);
     highText->setBounds (696, 113, 39, 24);
-    newButton->setBounds (32, 355, 63, 24);
-    saveButton->setBounds (32, 435, 63, 24);
-    openButton->setBounds (32, 395, 63, 24);
-    saveAsButton->setBounds (32, 475, 63, 24);
-    groupComponent2->setBounds (32, 16, 184, 294);
+    newButton->setBounds (36, 520, 63, 24);
+    saveButton->setBounds (36, 484, 63, 24);
+    openButton->setBounds (36, 449, 63, 24);
+    saveAsButton->setBounds (148, 484, 63, 24);
+    groupComponent2->setBounds (32, 16, 184, 256);
     label2->setBounds (618, 39, 63, 24);
     label3->setBounds (505, 38, 47, 24);
     label4->setBounds (619, 89, 87, 24);
     baudBox->setBounds (62, 62, 128, 24);
-    sampleRateBox->setBounds (62, 126, 128, 24);
+    sampleRateBox->setBounds (62, 121, 128, 24);
     label->setBounds (57, 37, 105, 24);
-    label21->setBounds (58, 101, 128, 24);
-    volSlider->setBounds (56, 191, 140, 48);
-    label22->setBounds (58, 167, 150, 24);
+    label21->setBounds (58, 95, 128, 24);
+    volSlider->setBounds (56, 174, 140, 48);
+    label22->setBounds (58, 156, 150, 24);
     linkButton->setBounds (16, 555, 96, 24);
     initText->setBounds (248, 361, 520, 215);
     triggerBox->setBounds (277, 62, 56, 24);
@@ -573,7 +602,7 @@ void MainComponent::resized()
     resetButton->setBounds (276, 206, 63, 24);
     label8->setBounds (619, 135, 40, 24);
     label9->setBounds (691, 136, 40, 24);
-    ampToggle->setBounds (59, 270, 136, 24);
+    ampToggle->setBounds (59, 233, 136, 24);
     label10->setBounds (243, 338, 125, 24);
     testButton->setBounds (676, 206, 63, 24);
     portBox->setBounds (323, 292, 208, 24);
@@ -582,8 +611,11 @@ void MainComponent::resized()
     label12->setBounds (559, 293, 72, 24);
     trigVolSlider->setBounds (408, 147, 150, 24);
     label7->setBounds (274, 146, 150, 24);
-    stopButton->setBounds (150, 356, 63, 24);
+    stopButton->setBounds (148, 448, 63, 24);
     copyButton->setBounds (596, 206, 63, 24);
+    velocityToggle->setBounds (59, 304, 150, 24);
+    releaseSlider->setBounds (56, 360, 140, 48);
+    releaseText->setBounds (70, 341, 113, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -751,7 +783,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == copyButton)
     {
         //[UserButtonCode_copyButton] -- add your button handler code here..
- 
+
 		int ct = triggerBox->getSelectedId();
 		if (ct < 16) {
 			ct++;
@@ -775,8 +807,31 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 		}
 		else
 			copyButton->setEnabled(false);
-		
-		//[/UserButtonCode_copyButton]
+
+        //[/UserButtonCode_copyButton]
+    }
+    else if (buttonThatWasClicked == velocityToggle)
+    {
+        //[UserButtonCode_velocityToggle] -- add your button handler code here..
+
+		for (int n = 0; n < mInitStrings.size(); n++) {
+			if (mInitStrings[n].startsWith("#MIDI"))
+				mInitStrings.remove(n);
+		}
+		if (velocityToggle->getToggleState()) {
+
+			String bStr = "#MIDI 3 ";
+			bStr += newLine;
+			mInitStrings.insert(0, bStr);
+		}
+		else {
+			String bStr = "#MIDI 1 ";
+			bStr += newLine;
+			mInitStrings.insert(0, bStr);
+		}
+		updateInitWindow();
+
+        //[/UserButtonCode_velocityToggle]
     }
 
     //[UserbuttonClicked_Post]
@@ -895,15 +950,26 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     {
         //[UserComboBoxCode_baudBox] -- add your combo box handling code here..
 
-		// Look for and delete any existing BAUD entry
+		// Look for and delete any existing BAUD, MIDI or MREL entries
 		for (int n = 0; n < mInitStrings.size(); n++) {
 			if (mInitStrings[n].startsWith("#BAUD"))
 				mInitStrings.remove(n);
+		}
+		for (int n = 0; n < mInitStrings.size(); n++) {
 			if (mInitStrings[n].startsWith("#MIDI"))
+				mInitStrings.remove(n);
+		}
+		for (int n = 0; n < mInitStrings.size(); n++) {
+			if (mInitStrings[n].startsWith("#MREL"))
 				mInitStrings.remove(n);
 		}
 		// Add an entry if not the default
 		if (baudBox->getSelectedId() < 6) {
+			releaseSlider->setEnabled(false);
+			velocityToggle->setEnabled(false);
+			releaseText->setEnabled(false);
+			releaseSlider->setValue(0.0, dontSendNotification);
+			velocityToggle->setToggleState(false, dontSendNotification);
 			String bStr = "#BAUD ";
 			switch (baudBox->getSelectedId()) {
 				case 1:
@@ -926,6 +992,9 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 			mInitStrings.insert(0, bStr);
 		}
 		else if (baudBox->getSelectedId() == 7) {
+			velocityToggle->setEnabled(true);
+			releaseText->setEnabled(true);
+			releaseSlider->setEnabled(true);
 			String bStr = "#MIDI 1 ";
 			bStr += newLine;
 			mInitStrings.insert(0, bStr);
@@ -1070,6 +1139,29 @@ void MainComponent::sliderValueChanged (Slider* sliderThatWasMoved)
         //[UserSliderCode_trigVolSlider] -- add your slider handling code here..
         //[/UserSliderCode_trigVolSlider]
     }
+    else if (sliderThatWasMoved == releaseSlider)
+    {
+        //[UserSliderCode_releaseSlider] -- add your slider handling code here..
+
+			int i = (int)releaseSlider->getValue();
+
+			// Look for and delete any existing BAUD entry
+			for (int n = 0; n < mInitStrings.size(); n++) {
+				if (mInitStrings[n].startsWith("#MREL"))
+					mInitStrings.remove(n);
+			}
+
+			// Add an entry if not the default
+			if (i != 0) {
+				String bStr = "#MREL ";
+				bStr += i;
+				bStr += newLine;
+				mInitStrings.insert(0, bStr);
+			}
+			updateInitWindow();
+
+        //[/UserSliderCode_releaseSlider]
+    }
 
     //[UsersliderValueChanged_Post]
     //[/UsersliderValueChanged_Post]
@@ -1104,6 +1196,9 @@ BEGIN_JUCER_METADATA
                  variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
                  overlayOpacity="0.330" fixedSize="1" initialWidth="800" initialHeight="620">
   <BACKGROUND backgroundColour="ff2e4dab"/>
+  <GROUPCOMPONENT name="new group" id="90ec82064f979d06" memberName="groupComponent4"
+                  virtualName="" explicitFocusOrder="0" pos="32 280 184 152" textcol="ffffffff"
+                  title="MIDI"/>
   <GROUPCOMPONENT name="new group" id="242a01730ad6db8e" memberName="groupComponent3"
                   virtualName="" explicitFocusOrder="0" pos="243 260 526 76" textcol="ffffffff"
                   title="Trigger Test COM Port (optional)"/>
@@ -1111,8 +1206,8 @@ BEGIN_JUCER_METADATA
                   virtualName="" explicitFocusOrder="0" pos="244 16 526 234" outlinecol="66000000"
                   textcol="ffffffff" title="Trigger Settings"/>
   <TEXTBUTTON name="" id="bcf4f7b0888effe5" memberName="quitButton" virtualName=""
-              explicitFocusOrder="0" pos="32 515 63 24" buttonText="Quit" connectedEdges="0"
-              needsCallback="1" radioGroupId="0"/>
+              explicitFocusOrder="0" pos="148 520 63 24" buttonText="Quit"
+              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="ef8d15cc5a4b63c3" memberName="statusBar"
          virtualName="" explicitFocusOrder="0" pos="0 0Rr 100% 24" bkgCol="ff8da3da"
          textCol="ff000000" outlineCol="0" edTextCol="ff000000" edBkgCol="0"
@@ -1139,19 +1234,19 @@ BEGIN_JUCER_METADATA
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="0"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="b85453e71d7e819a" memberName="newButton"
-              virtualName="" explicitFocusOrder="0" pos="32 355 63 24" buttonText="New"
+              virtualName="" explicitFocusOrder="0" pos="36 520 63 24" buttonText="New"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save button" id="7f44c667d204efa4" memberName="saveButton"
-              virtualName="" explicitFocusOrder="0" pos="32 435 63 24" buttonText="Save"
+              virtualName="" explicitFocusOrder="0" pos="36 484 63 24" buttonText="Save"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="open button" id="aff16e2440c1e77e" memberName="openButton"
-              virtualName="" explicitFocusOrder="0" pos="32 395 63 24" buttonText="Open"
+              virtualName="" explicitFocusOrder="0" pos="36 449 63 24" buttonText="Open"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save as button" id="36951dd779d924d0" memberName="saveAsButton"
-              virtualName="" explicitFocusOrder="0" pos="32 475 63 24" buttonText="Save As"
+              virtualName="" explicitFocusOrder="0" pos="148 484 63 24" buttonText="Save As"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <GROUPCOMPONENT name="new group" id="6ec7de23acb7bc6f" memberName="groupComponent2"
-                  virtualName="" explicitFocusOrder="0" pos="32 16 184 294" textcol="ffffffff"
+                  virtualName="" explicitFocusOrder="0" pos="32 16 184 256" textcol="ffffffff"
                   title="System"/>
   <LABEL name="new label" id="55d41def757f7937" memberName="label2" virtualName=""
          explicitFocusOrder="0" pos="618 39 63 24" edTextCol="ff000000"
@@ -1172,7 +1267,7 @@ BEGIN_JUCER_METADATA
             explicitFocusOrder="0" pos="62 62 128 24" editable="0" layout="33"
             items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <COMBOBOX name="sample rate box" id="b1bacfa2afd6ee10" memberName="sampleRateBox"
-            virtualName="" explicitFocusOrder="0" pos="62 126 128 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="62 121 128 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="b168245de12e2a99" memberName="label" virtualName=""
          explicitFocusOrder="0" pos="57 37 105 24" edTextCol="ff000000"
@@ -1180,16 +1275,16 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="53a98ea4fee8c3f8" memberName="label21" virtualName=""
-         explicitFocusOrder="0" pos="58 101 128 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="58 95 128 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Audio Sample Rate" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <SLIDER name="volume slider" id="fbfedd66eca0907d" memberName="volSlider"
-          virtualName="" explicitFocusOrder="0" pos="56 191 140 48" min="-20"
+          virtualName="" explicitFocusOrder="0" pos="56 174 140 48" min="-20"
           max="10" int="1" style="LinearHorizontal" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="new label" id="8236b56510d8f8c8" memberName="label22" virtualName=""
-         explicitFocusOrder="0" pos="58 167 150 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="58 156 150 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Output Volume (dB)" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
@@ -1243,7 +1338,7 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <TOGGLEBUTTON name="amp toggle button" id="52afbea038eb88e6" memberName="ampToggle"
-                virtualName="" explicitFocusOrder="0" pos="59 270 136 24" buttonText="Audio Amp Power"
+                virtualName="" explicitFocusOrder="0" pos="59 233 136 24" buttonText="Audio Amp Power"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <LABEL name="new label" id="5a682e7a8a3d958d" memberName="label10" virtualName=""
          explicitFocusOrder="0" pos="243 338 125 24" textCol="fffffdfd"
@@ -1279,11 +1374,23 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="stop button" id="4b667057695aa760" memberName="stopButton"
-              virtualName="" explicitFocusOrder="0" pos="150 356 63 24" buttonText="StopAll"
+              virtualName="" explicitFocusOrder="0" pos="148 448 63 24" buttonText="StopAll"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="copy button" id="923548f55486380c" memberName="copyButton"
               virtualName="" explicitFocusOrder="0" pos="596 206 63 24" buttonText="Copy"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <TOGGLEBUTTON name="velocity toggle button" id="f4db3cfaede9e9fd" memberName="velocityToggle"
+                virtualName="" explicitFocusOrder="0" pos="59 304 150 24" buttonText="Disable Velocity"
+                connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
+  <SLIDER name="release slider" id="15aa3da61a7b51ad" memberName="releaseSlider"
+          virtualName="" explicitFocusOrder="0" pos="56 360 140 48" min="0"
+          max="127" int="1" style="LinearHorizontal" textBoxPos="TextBoxBelow"
+          textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
+  <LABEL name="new label" id="cdfea73ff3c1eb4b" memberName="releaseText"
+         virtualName="" explicitFocusOrder="0" pos="70 341 113 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Default Release" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
