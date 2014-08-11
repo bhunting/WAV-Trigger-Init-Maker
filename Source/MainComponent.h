@@ -104,9 +104,7 @@ private:
     ScopedPointer<Label> label3;
     ScopedPointer<Label> label4;
     ScopedPointer<ComboBox> baudBox;
-    ScopedPointer<ComboBox> sampleRateBox;
     ScopedPointer<Label> label;
-    ScopedPointer<Label> label21;
     ScopedPointer<Slider> volSlider;
     ScopedPointer<Label> label22;
     ScopedPointer<HyperlinkButton> linkButton;
@@ -136,6 +134,9 @@ private:
     ScopedPointer<ToggleButton> velocityToggle;
     ScopedPointer<Slider> releaseSlider;
     ScopedPointer<Label> releaseText;
+    ScopedPointer<ToggleButton> lpToggle;
+    ScopedPointer<Slider> lpSlider;
+    ScopedPointer<Label> label13;
 
 
     //==============================================================================
