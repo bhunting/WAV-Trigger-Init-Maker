@@ -348,20 +348,20 @@ MainComponent::MainComponent ()
     lpToggle->setButtonText ("Low Power Option");
     lpToggle->addListener (this);
 
-    addAndMakeVisible (lpSlider = new Slider ("low power slider"));
-    lpSlider->setRange (1, 3600, 1);
-    lpSlider->setSliderStyle (Slider::LinearHorizontal);
-    lpSlider->setTextBoxStyle (Slider::TextBoxRight, false, 40, 20);
-    lpSlider->setColour (Slider::rotarySliderFillColourId, Colour (0x7f000000));
-    lpSlider->addListener (this);
+    addAndMakeVisible (sleepText = new Label ("new label",
+                                              "Sleep After"));
+    sleepText->setFont (Font (15.00f, Font::plain));
+    sleepText->setJustificationType (Justification::centredLeft);
+    sleepText->setEditable (false, false, false);
+    sleepText->setColour (TextEditor::textColourId, Colours::black);
+    sleepText->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (label13 = new Label ("new label",
-                                            "Sleep After (sec)"));
-    label13->setFont (Font (15.00f, Font::plain));
-    label13->setJustificationType (Justification::centredLeft);
-    label13->setEditable (false, false, false);
-    label13->setColour (TextEditor::textColourId, Colours::black);
-    label13->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    addAndMakeVisible (sleepBox = new ComboBox ("sleep box"));
+    sleepBox->setEditableText (false);
+    sleepBox->setJustificationType (Justification::centredLeft);
+    sleepBox->setTextWhenNothingSelected (String::empty);
+    sleepBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    sleepBox->addListener (this);
 
 
     //[UserPreSize]
@@ -394,6 +394,19 @@ MainComponent::MainComponent ()
 	baudBox->addItem("38.4 kbps", 5);
 	baudBox->addItem("57.6 kbps", 6);
 	baudBox->addItem("MIDI", 7);
+
+	sleepBox->addItem("15 sec", 1);
+	sleepBox->addItem("30 sec", 2);
+	sleepBox->addItem("1 min", 3);
+	sleepBox->addItem("2 min", 4);
+	sleepBox->addItem("3 min", 5);
+	sleepBox->addItem("4 min", 6);
+	sleepBox->addItem("5 min", 7);
+	sleepBox->addItem("10 min", 8);
+	sleepBox->addItem("15 min", 9);
+	sleepBox->addItem("30 min", 10);
+	sleepBox->addItem("45 min", 11);
+	sleepBox->addItem("1 hr", 12);
 
 	String st;
 	for (int i = 1; i < 17; i++) {
@@ -543,8 +556,8 @@ MainComponent::~MainComponent()
     releaseSlider = nullptr;
     releaseText = nullptr;
     lpToggle = nullptr;
-    lpSlider = nullptr;
-    label13 = nullptr;
+    sleepText = nullptr;
+    sleepBox = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -574,8 +587,8 @@ void MainComponent::resized()
     typeBox->setBounds (510, 62, 98, 24);
     invertToggle->setBounds (273, 105, 108, 24);
     polyToggle->setBounds (504, 105, 96, 24);
-    lowText->setBounds (624, 113, 39, 24);
-    highText->setBounds (696, 113, 39, 24);
+    lowText->setBounds (624, 117, 39, 20);
+    highText->setBounds (696, 117, 39, 20);
     newButton->setBounds (36, 520, 63, 24);
     saveButton->setBounds (36, 484, 63, 24);
     openButton->setBounds (36, 449, 63, 24);
@@ -615,9 +628,9 @@ void MainComponent::resized()
     velocityToggle->setBounds (52, 324, 150, 24);
     releaseSlider->setBounds (53, 387, 140, 24);
     releaseText->setBounds (51, 364, 155, 24);
-    lpToggle->setBounds (51, 196, 136, 24);
-    lpSlider->setBounds (52, 248, 140, 24);
-    label13->setBounds (67, 224, 121, 24);
+    lpToggle->setBounds (51, 194, 136, 24);
+    sleepText->setBounds (67, 218, 87, 20);
+    sleepBox->setBounds (72, 243, 104, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -841,9 +854,10 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
 		// Add an entry to enable if toggle state is true
 		if (lpToggle->getToggleState()) {
-			lpSlider->setEnabled(true);
-			lpSlider->setValue(60, dontSendNotification);
-			String bStr = "#LPWR 60";
+			sleepText->setEnabled(true);
+			sleepBox->setEnabled(true);
+			sleepBox->setSelectedId(7, dontSendNotification);
+			String bStr = "#LPWR 300";
 			bStr += newLine;
 			mInitStrings.insert(0, bStr);
 		}
@@ -853,7 +867,8 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 				if (mInitStrings[n].startsWith("#LPWR"))
 					mInitStrings.remove(n);
 			}
-			lpSlider->setEnabled(false);
+			sleepText->setEnabled(false);
+			sleepBox->setEnabled(false);
 		}
 		updateInitWindow();
 
@@ -1100,6 +1115,61 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
         //[UserComboBoxCode_testBaudBox] -- add your combo box handling code here..
         //[/UserComboBoxCode_testBaudBox]
     }
+    else if (comboBoxThatHasChanged == sleepBox)
+    {
+        //[UserComboBoxCode_sleepBox] -- add your combo box handling code here..
+
+		// Look for and delete any existing LPWR entry
+		for (int n = 0; n < mInitStrings.size(); n++) {
+			if (mInitStrings[n].startsWith("#LPWR"))
+				mInitStrings.remove(n);
+		}
+
+		String bStr = "#LPWR ";
+		switch (sleepBox->getSelectedId()) {
+			case 1:
+				bStr += "15";
+			break;
+			case 2:
+				bStr += "30";
+			break;
+			case 3:
+				bStr += "60";
+			break;
+			case 4:
+				bStr += "120";
+			break;
+			case 5:
+				bStr += "180";
+			break;
+			case 6:
+				bStr += "240";
+			break;
+			case 7:
+				bStr += "300";
+			break;
+			case 8:
+				bStr += "600";
+			break;
+			case 9:
+				bStr += "900";
+			break;
+			case 10:
+				bStr += "1800";
+			break;
+			case 11:
+				bStr += "2700";
+			break;
+			case 12:
+				bStr += "3600";
+			break;
+		}
+		bStr += newLine;
+		mInitStrings.insert(0, bStr);
+		updateInitWindow();
+
+        //[/UserComboBoxCode_sleepBox]
+    }
 
     //[UsercomboBoxChanged_Post]
     //[/UsercomboBoxChanged_Post]
@@ -1160,29 +1230,6 @@ void MainComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 			updateInitWindow();
 
         //[/UserSliderCode_releaseSlider]
-    }
-    else if (sliderThatWasMoved == lpSlider)
-    {
-        //[UserSliderCode_lpSlider] -- add your slider handling code here..
-
-			int i = (int)lpSlider->getValue();
-
-			// Look for and delete any existing BAUD entry
-			for (int n = 0; n < mInitStrings.size(); n++) {
-				if (mInitStrings[n].startsWith("#LPWR"))
-					mInitStrings.remove(n);
-			}
-
-			// Add an entry if not the default
-			if (i != 0) {
-				String bStr = "#LPWR ";
-				bStr += i;
-				bStr += newLine;
-				mInitStrings.insert(0, bStr);
-			}
-			updateInitWindow();
-
-        //[/UserSliderCode_lpSlider]
     }
 
     //[UsersliderValueChanged_Post]
@@ -1249,10 +1296,10 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="504 105 96 24" buttonText="Polyphonic"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TEXTEDITOR name="low text" id="34a63e8887bfc5f3" memberName="lowText" virtualName=""
-              explicitFocusOrder="0" pos="624 113 39 24" initialText="" multiline="0"
+              explicitFocusOrder="0" pos="624 117 39 20" initialText="" multiline="0"
               retKeyStartsLine="0" readonly="0" scrollbars="0" caret="1" popupmenu="1"/>
   <TEXTEDITOR name="high text" id="78ea03ee33471435" memberName="highText"
-              virtualName="" explicitFocusOrder="0" pos="696 113 39 24" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="696 117 39 20" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="0"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="b85453e71d7e819a" memberName="newButton"
@@ -1406,17 +1453,16 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <TOGGLEBUTTON name="lp toggle button" id="4a8fb34d9cce4629" memberName="lpToggle"
-                virtualName="" explicitFocusOrder="0" pos="51 196 136 24" buttonText="Low Power Option"
+                virtualName="" explicitFocusOrder="0" pos="51 194 136 24" buttonText="Low Power Option"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
-  <SLIDER name="low power slider" id="fd86fec4dbd59509" memberName="lpSlider"
-          virtualName="" explicitFocusOrder="0" pos="52 248 140 24" rotarysliderfill="7f000000"
-          min="1" max="3600" int="1" style="LinearHorizontal" textBoxPos="TextBoxRight"
-          textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
-  <LABEL name="new label" id="29ad17d33c6f6ae8" memberName="label13" virtualName=""
-         explicitFocusOrder="0" pos="67 224 121 24" edTextCol="ff000000"
-         edBkgCol="0" labelText="Sleep After (sec)" editableSingleClick="0"
+  <LABEL name="new label" id="29ad17d33c6f6ae8" memberName="sleepText"
+         virtualName="" explicitFocusOrder="0" pos="67 218 87 20" edTextCol="ff000000"
+         edBkgCol="0" labelText="Sleep After" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
+  <COMBOBOX name="sleep box" id="9459a97eaead09f6" memberName="sleepBox"
+            virtualName="" explicitFocusOrder="0" pos="72 243 104 24" editable="0"
+            layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

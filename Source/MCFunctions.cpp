@@ -61,8 +61,9 @@ void MainComponent::reset(void)
 	releaseText->setEnabled(false);
 
 	lpToggle->setToggleState(false, dontSendNotification);
-	lpSlider->setEnabled(false);
-	lpSlider->setValue(60.0, dontSendNotification);
+	sleepText->setEnabled(false);
+	sleepBox->setEnabled(false);
+	sleepBox->setSelectedId(7, dontSendNotification);
 
 	mInitStrings.clear();
 	mInitStrings.add("********************************************************************");

@@ -135,8 +135,8 @@ private:
     ScopedPointer<Slider> releaseSlider;
     ScopedPointer<Label> releaseText;
     ScopedPointer<ToggleButton> lpToggle;
-    ScopedPointer<Slider> lpSlider;
-    ScopedPointer<Label> label13;
+    ScopedPointer<Label> sleepText;
+    ScopedPointer<ComboBox> sleepBox;
 
 
     //==============================================================================
