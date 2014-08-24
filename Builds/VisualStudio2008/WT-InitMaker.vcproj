@@ -109,6 +109,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\Release"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
