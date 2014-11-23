@@ -33,20 +33,20 @@
 MainComponent::MainComponent ()
 {
     addAndMakeVisible (groupComponent4 = new GroupComponent ("new group",
-                                                             "MIDI"));
+                                                             TRANS("MIDI")));
     groupComponent4->setColour (GroupComponent::textColourId, Colours::white);
 
     addAndMakeVisible (groupComponent3 = new GroupComponent ("new group",
-                                                             "Trigger Test COM Port (optional)"));
+                                                             TRANS("Trigger Test COM Port (optional)")));
     groupComponent3->setColour (GroupComponent::textColourId, Colours::white);
 
     addAndMakeVisible (groupComponent = new GroupComponent ("new group",
-                                                            "Trigger Settings"));
+                                                            TRANS("Trigger Settings")));
     groupComponent->setColour (GroupComponent::outlineColourId, Colour (0x66000000));
     groupComponent->setColour (GroupComponent::textColourId, Colours::white);
 
     addAndMakeVisible (quitButton = new TextButton (String::empty));
-    quitButton->setButtonText ("Quit");
+    quitButton->setButtonText (TRANS("Quit"));
     quitButton->addListener (this);
 
     addAndMakeVisible (statusBar = new Label ("new label",
@@ -64,22 +64,22 @@ MainComponent::MainComponent ()
     functionBox->setEditableText (false);
     functionBox->setJustificationType (Justification::centredLeft);
     functionBox->setTextWhenNothingSelected (String::empty);
-    functionBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    functionBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     functionBox->addListener (this);
 
     addAndMakeVisible (typeBox = new ComboBox ("type box"));
     typeBox->setEditableText (false);
     typeBox->setJustificationType (Justification::centredLeft);
     typeBox->setTextWhenNothingSelected (String::empty);
-    typeBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    typeBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     typeBox->addListener (this);
 
     addAndMakeVisible (invertToggle = new ToggleButton ("invert toggle"));
-    invertToggle->setButtonText ("Invert");
+    invertToggle->setButtonText (TRANS("Invert"));
     invertToggle->addListener (this);
 
     addAndMakeVisible (polyToggle = new ToggleButton ("poly toggle"));
-    polyToggle->setButtonText ("Polyphonic");
+    polyToggle->setButtonText (TRANS("Polyphonic"));
     polyToggle->addListener (this);
 
     addAndMakeVisible (lowText = new TextEditor ("low text"));
@@ -101,27 +101,27 @@ MainComponent::MainComponent ()
     highText->setText (String::empty);
 
     addAndMakeVisible (newButton = new TextButton ("new button"));
-    newButton->setButtonText ("New");
+    newButton->setButtonText (TRANS("New"));
     newButton->addListener (this);
 
     addAndMakeVisible (saveButton = new TextButton ("save button"));
-    saveButton->setButtonText ("Save");
+    saveButton->setButtonText (TRANS("Save"));
     saveButton->addListener (this);
 
     addAndMakeVisible (openButton = new TextButton ("open button"));
-    openButton->setButtonText ("Open");
+    openButton->setButtonText (TRANS("Open"));
     openButton->addListener (this);
 
     addAndMakeVisible (saveAsButton = new TextButton ("save as button"));
-    saveAsButton->setButtonText ("Save As");
+    saveAsButton->setButtonText (TRANS("Save As"));
     saveAsButton->addListener (this);
 
     addAndMakeVisible (groupComponent2 = new GroupComponent ("new group",
-                                                             "System"));
+                                                             TRANS("System")));
     groupComponent2->setColour (GroupComponent::textColourId, Colours::white);
 
     addAndMakeVisible (label2 = new Label ("new label",
-                                           "Function"));
+                                           TRANS("Function")));
     label2->setFont (Font (15.00f, Font::plain));
     label2->setJustificationType (Justification::centredLeft);
     label2->setEditable (false, false, false);
@@ -129,7 +129,7 @@ MainComponent::MainComponent ()
     label2->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (label3 = new Label ("new label",
-                                           "Type"));
+                                           TRANS("Type")));
     label3->setFont (Font (15.00f, Font::plain));
     label3->setJustificationType (Justification::centredLeft);
     label3->setEditable (false, false, false);
@@ -137,7 +137,7 @@ MainComponent::MainComponent ()
     label3->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (label4 = new Label ("new label",
-                                           "Track Range"));
+                                           TRANS("Track Range")));
     label4->setFont (Font (15.00f, Font::plain));
     label4->setJustificationType (Justification::centredLeft);
     label4->setEditable (false, false, false);
@@ -148,11 +148,11 @@ MainComponent::MainComponent ()
     baudBox->setEditableText (false);
     baudBox->setJustificationType (Justification::centredLeft);
     baudBox->setTextWhenNothingSelected (String::empty);
-    baudBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    baudBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     baudBox->addListener (this);
 
     addAndMakeVisible (label = new Label ("new label",
-                                          "Serial Comm."));
+                                          TRANS("Serial Comm.")));
     label->setFont (Font (15.00f, Font::plain));
     label->setJustificationType (Justification::centredLeft);
     label->setEditable (false, false, false);
@@ -167,17 +167,17 @@ MainComponent::MainComponent ()
     volSlider->addListener (this);
 
     addAndMakeVisible (label22 = new Label ("new label",
-                                            "Output Volume (dB)"));
+                                            TRANS("Output Volume (dB)")));
     label22->setFont (Font (15.00f, Font::plain));
     label22->setJustificationType (Justification::centredLeft);
     label22->setEditable (false, false, false);
     label22->setColour (TextEditor::textColourId, Colours::black);
     label22->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (linkButton = new HyperlinkButton ("Help",
+    addAndMakeVisible (linkButton = new HyperlinkButton (TRANS("Help"),
                                                          URL ("http://robertsonics.com/wav-trigger-online-user-guide/")));
-    linkButton->setTooltip ("http://robertsonics.com/wav-trigger-online-user-guide/");
-    linkButton->setButtonText ("Help");
+    linkButton->setTooltip (TRANS("http://robertsonics.com/wav-trigger-online-user-guide/"));
+    linkButton->setButtonText (TRANS("Help"));
     linkButton->addListener (this);
     linkButton->setColour (HyperlinkButton::textColourId, Colours::white);
 
@@ -194,30 +194,30 @@ MainComponent::MainComponent ()
     triggerBox->setEditableText (false);
     triggerBox->setJustificationType (Justification::centredLeft);
     triggerBox->setTextWhenNothingSelected (String::empty);
-    triggerBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    triggerBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     triggerBox->addListener (this);
 
     addAndMakeVisible (interfaceBox = new ComboBox ("interface combo box"));
     interfaceBox->setEditableText (false);
     interfaceBox->setJustificationType (Justification::centredLeft);
     interfaceBox->setTextWhenNothingSelected (String::empty);
-    interfaceBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    interfaceBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     interfaceBox->addListener (this);
 
     addAndMakeVisible (addButton = new TextButton ("add button"));
-    addButton->setButtonText ("Add");
+    addButton->setButtonText (TRANS("Add"));
     addButton->addListener (this);
 
     addAndMakeVisible (updateButton = new TextButton ("update button"));
-    updateButton->setButtonText ("Update");
+    updateButton->setButtonText (TRANS("Update"));
     updateButton->addListener (this);
 
     addAndMakeVisible (deleteButton = new TextButton ("delete button"));
-    deleteButton->setButtonText ("Delete");
+    deleteButton->setButtonText (TRANS("Delete"));
     deleteButton->addListener (this);
 
     addAndMakeVisible (label5 = new Label ("new label",
-                                           "Trigger"));
+                                           TRANS("Trigger")));
     label5->setFont (Font (15.00f, Font::plain));
     label5->setJustificationType (Justification::centredLeft);
     label5->setEditable (false, false, false);
@@ -225,7 +225,7 @@ MainComponent::MainComponent ()
     label5->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (label6 = new Label ("new label",
-                                           "Hardware Interface"));
+                                           TRANS("Hardware Interface")));
     label6->setFont (Font (15.00f, Font::plain));
     label6->setJustificationType (Justification::centredLeft);
     label6->setEditable (false, false, false);
@@ -233,15 +233,15 @@ MainComponent::MainComponent ()
     label6->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (retriggerToggle = new ToggleButton ("retrigger toggle button"));
-    retriggerToggle->setButtonText ("Re-Triggers");
+    retriggerToggle->setButtonText (TRANS("Re-Triggers"));
     retriggerToggle->addListener (this);
 
     addAndMakeVisible (resetButton = new TextButton ("reset button"));
-    resetButton->setButtonText ("Reset");
+    resetButton->setButtonText (TRANS("Reset"));
     resetButton->addListener (this);
 
     addAndMakeVisible (label8 = new Label ("new label",
-                                           "Low"));
+                                           TRANS("Low")));
     label8->setFont (Font (15.00f, Font::plain));
     label8->setJustificationType (Justification::centredLeft);
     label8->setEditable (false, false, false);
@@ -249,7 +249,7 @@ MainComponent::MainComponent ()
     label8->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (label9 = new Label ("new label",
-                                           "High"));
+                                           TRANS("High")));
     label9->setFont (Font (15.00f, Font::plain));
     label9->setJustificationType (Justification::centredLeft);
     label9->setEditable (false, false, false);
@@ -257,11 +257,11 @@ MainComponent::MainComponent ()
     label9->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (ampToggle = new ToggleButton ("amp toggle button"));
-    ampToggle->setButtonText ("Audio Amp Power");
+    ampToggle->setButtonText (TRANS("Audio Amp Power"));
     ampToggle->addListener (this);
 
     addAndMakeVisible (label10 = new Label ("new label",
-                                            "Init File Contents:"));
+                                            TRANS("Init File Contents:")));
     label10->setFont (Font (15.00f, Font::plain));
     label10->setJustificationType (Justification::centredLeft);
     label10->setEditable (false, false, false);
@@ -270,7 +270,7 @@ MainComponent::MainComponent ()
     label10->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (testButton = new TextButton ("delete button"));
-    testButton->setButtonText ("Test");
+    testButton->setButtonText (TRANS("Test"));
     testButton->addListener (this);
     testButton->setColour (TextButton::buttonColourId, Colour (0xffd00009));
 
@@ -278,11 +278,11 @@ MainComponent::MainComponent ()
     portBox->setEditableText (false);
     portBox->setJustificationType (Justification::centredLeft);
     portBox->setTextWhenNothingSelected (String::empty);
-    portBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    portBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     portBox->addListener (this);
 
     addAndMakeVisible (label11 = new Label ("new label",
-                                            "Port:"));
+                                            TRANS("Port:")));
     label11->setFont (Font (15.00f, Font::plain));
     label11->setJustificationType (Justification::centredLeft);
     label11->setEditable (false, false, false);
@@ -293,11 +293,11 @@ MainComponent::MainComponent ()
     testBaudBox->setEditableText (false);
     testBaudBox->setJustificationType (Justification::centredLeft);
     testBaudBox->setTextWhenNothingSelected (String::empty);
-    testBaudBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    testBaudBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     testBaudBox->addListener (this);
 
     addAndMakeVisible (label12 = new Label ("new label",
-                                            "Baudrate:"));
+                                            TRANS("Baudrate:")));
     label12->setFont (Font (15.00f, Font::plain));
     label12->setJustificationType (Justification::centredLeft);
     label12->setEditable (false, false, false);
@@ -311,7 +311,7 @@ MainComponent::MainComponent ()
     trigVolSlider->addListener (this);
 
     addAndMakeVisible (label7 = new Label ("new label",
-                                           "Trigger Volume (dB)"));
+                                           TRANS("Trigger Volume (dB)")));
     label7->setFont (Font (15.00f, Font::plain));
     label7->setJustificationType (Justification::centredLeft);
     label7->setEditable (false, false, false);
@@ -319,15 +319,15 @@ MainComponent::MainComponent ()
     label7->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (stopButton = new TextButton ("stop button"));
-    stopButton->setButtonText ("StopAll");
+    stopButton->setButtonText (TRANS("StopAll"));
     stopButton->addListener (this);
 
     addAndMakeVisible (copyButton = new TextButton ("copy button"));
-    copyButton->setButtonText ("Copy");
+    copyButton->setButtonText (TRANS("Copy"));
     copyButton->addListener (this);
 
     addAndMakeVisible (velocityToggle = new ToggleButton ("velocity toggle button"));
-    velocityToggle->setButtonText ("Ignore Velocity");
+    velocityToggle->setButtonText (TRANS("Ignore Velocity"));
     velocityToggle->addListener (this);
 
     addAndMakeVisible (releaseSlider = new Slider ("release slider"));
@@ -337,7 +337,7 @@ MainComponent::MainComponent ()
     releaseSlider->addListener (this);
 
     addAndMakeVisible (releaseText = new Label ("new label",
-                                                "Default Release (msec)"));
+                                                TRANS("Default Release (msec)")));
     releaseText->setFont (Font (15.00f, Font::plain));
     releaseText->setJustificationType (Justification::centredLeft);
     releaseText->setEditable (false, false, false);
@@ -345,12 +345,12 @@ MainComponent::MainComponent ()
     releaseText->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (lpToggle = new ToggleButton ("lp toggle button"));
-    lpToggle->setButtonText ("Low Power Option");
+    lpToggle->setButtonText (TRANS("Low Power Option"));
     lpToggle->addListener (this);
 
     addAndMakeVisible (sleepText = new Label ("new label",
-                                              "Sleep\n"
-                                              "After"));
+                                              TRANS("Sleep\n"
+                                              "After")));
     sleepText->setFont (Font (15.00f, Font::plain));
     sleepText->setJustificationType (Justification::centredLeft);
     sleepText->setEditable (false, false, false);
@@ -361,19 +361,19 @@ MainComponent::MainComponent ()
     sleepBox->setEditableText (false);
     sleepBox->setJustificationType (Justification::centredLeft);
     sleepBox->setTextWhenNothingSelected (String::empty);
-    sleepBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    sleepBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     sleepBox->addListener (this);
 
     addAndMakeVisible (pitchBox = new ComboBox ("pitch box"));
     pitchBox->setEditableText (false);
     pitchBox->setJustificationType (Justification::centredLeft);
     pitchBox->setTextWhenNothingSelected (String::empty);
-    pitchBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    pitchBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     pitchBox->addListener (this);
 
     addAndMakeVisible (pitchText = new Label ("new label",
-                                              "Pitch Bend\n"
-                                              "Semitones"));
+                                              TRANS("Pitch Bend\n"
+                                              "Semitones")));
     pitchText->setFont (Font (15.00f, Font::plain));
     pitchText->setJustificationType (Justification::centredLeft);
     pitchText->setEditable (false, false, false);
@@ -381,7 +381,7 @@ MainComponent::MainComponent ()
     pitchText->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (noteOffToggle = new ToggleButton ("noteOff toggle button"));
-    noteOffToggle->setButtonText ("Ignore Note-Offs");
+    noteOffToggle->setButtonText (TRANS("Ignore Note-Offs"));
     noteOffToggle->addListener (this);
 
 
