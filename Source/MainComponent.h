@@ -137,6 +137,9 @@ private:
     ScopedPointer<ToggleButton> lpToggle;
     ScopedPointer<Label> sleepText;
     ScopedPointer<ComboBox> sleepBox;
+    ScopedPointer<ComboBox> pitchBox;
+    ScopedPointer<Label> pitchText;
+    ScopedPointer<ToggleButton> noteOffToggle;
 
 
     //==============================================================================

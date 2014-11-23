@@ -327,7 +327,7 @@ MainComponent::MainComponent ()
     copyButton->addListener (this);
 
     addAndMakeVisible (velocityToggle = new ToggleButton ("velocity toggle button"));
-    velocityToggle->setButtonText ("Disable Velocity");
+    velocityToggle->setButtonText ("Ignore Velocity");
     velocityToggle->addListener (this);
 
     addAndMakeVisible (releaseSlider = new Slider ("release slider"));
@@ -349,7 +349,8 @@ MainComponent::MainComponent ()
     lpToggle->addListener (this);
 
     addAndMakeVisible (sleepText = new Label ("new label",
-                                              "Sleep After"));
+                                              "Sleep\n"
+                                              "After"));
     sleepText->setFont (Font (15.00f, Font::plain));
     sleepText->setJustificationType (Justification::centredLeft);
     sleepText->setEditable (false, false, false);
@@ -362,6 +363,26 @@ MainComponent::MainComponent ()
     sleepBox->setTextWhenNothingSelected (String::empty);
     sleepBox->setTextWhenNoChoicesAvailable ("(no choices)");
     sleepBox->addListener (this);
+
+    addAndMakeVisible (pitchBox = new ComboBox ("pitch box"));
+    pitchBox->setEditableText (false);
+    pitchBox->setJustificationType (Justification::centredLeft);
+    pitchBox->setTextWhenNothingSelected (String::empty);
+    pitchBox->setTextWhenNoChoicesAvailable ("(no choices)");
+    pitchBox->addListener (this);
+
+    addAndMakeVisible (pitchText = new Label ("new label",
+                                              "Pitch Bend\n"
+                                              "Semitones"));
+    pitchText->setFont (Font (15.00f, Font::plain));
+    pitchText->setJustificationType (Justification::centredLeft);
+    pitchText->setEditable (false, false, false);
+    pitchText->setColour (TextEditor::textColourId, Colours::black);
+    pitchText->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (noteOffToggle = new ToggleButton ("noteOff toggle button"));
+    noteOffToggle->setButtonText ("Ignore Note-Offs");
+    noteOffToggle->addListener (this);
 
 
     //[UserPreSize]
@@ -407,6 +428,12 @@ MainComponent::MainComponent ()
 	sleepBox->addItem("30 min", 10);
 	sleepBox->addItem("45 min", 11);
 	sleepBox->addItem("1 hr", 12);
+
+	pitchBox->addItem("1", 1);
+	pitchBox->addItem("2", 2);
+	pitchBox->addItem("3", 3);
+	pitchBox->addItem("4", 4);
+	pitchBox->addItem("5", 5);
 
 	String st;
 	for (int i = 1; i < 17; i++) {
@@ -558,6 +585,9 @@ MainComponent::~MainComponent()
     lpToggle = nullptr;
     sleepText = nullptr;
     sleepBox = nullptr;
+    pitchBox = nullptr;
+    pitchText = nullptr;
+    noteOffToggle = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -578,10 +608,10 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    groupComponent4->setBounds (32, 296, 184, 136);
+    groupComponent4->setBounds (32, 259, 184, 178);
     groupComponent3->setBounds (243, 260, 526, 76);
     groupComponent->setBounds (244, 16, 526, 234);
-    quitButton->setBounds (148, 520, 63, 24);
+    quitButton->setBounds (148, 525, 63, 24);
     statusBar->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
     functionBox->setBounds (624, 62, 112, 24);
     typeBox->setBounds (510, 62, 98, 24);
@@ -589,19 +619,19 @@ void MainComponent::resized()
     polyToggle->setBounds (504, 105, 96, 24);
     lowText->setBounds (624, 117, 39, 20);
     highText->setBounds (696, 117, 39, 20);
-    newButton->setBounds (36, 520, 63, 24);
-    saveButton->setBounds (36, 484, 63, 24);
-    openButton->setBounds (36, 449, 63, 24);
-    saveAsButton->setBounds (148, 484, 63, 24);
-    groupComponent2->setBounds (32, 16, 184, 272);
+    newButton->setBounds (36, 525, 63, 24);
+    saveButton->setBounds (36, 489, 63, 24);
+    openButton->setBounds (36, 454, 63, 24);
+    saveAsButton->setBounds (148, 489, 63, 24);
+    groupComponent2->setBounds (32, 16, 184, 233);
     label2->setBounds (618, 39, 63, 24);
     label3->setBounds (505, 38, 47, 24);
     label4->setBounds (619, 89, 87, 24);
-    baudBox->setBounds (58, 62, 133, 24);
-    label->setBounds (52, 37, 105, 24);
-    volSlider->setBounds (52, 123, 140, 24);
-    label22->setBounds (51, 100, 150, 24);
-    linkButton->setBounds (16, 555, 96, 24);
+    baudBox->setBounds (59, 58, 133, 24);
+    label->setBounds (52, 34, 105, 24);
+    volSlider->setBounds (52, 112, 140, 24);
+    label22->setBounds (51, 90, 150, 24);
+    linkButton->setBounds (34, 557, 68, 24);
     initText->setBounds (248, 361, 520, 215);
     triggerBox->setBounds (277, 62, 56, 24);
     interfaceBox->setBounds (350, 62, 143, 24);
@@ -614,7 +644,7 @@ void MainComponent::resized()
     resetButton->setBounds (276, 206, 63, 24);
     label8->setBounds (619, 135, 40, 24);
     label9->setBounds (691, 136, 40, 24);
-    ampToggle->setBounds (51, 157, 136, 24);
+    ampToggle->setBounds (51, 145, 136, 24);
     label10->setBounds (243, 338, 125, 24);
     testButton->setBounds (676, 206, 63, 24);
     portBox->setBounds (323, 292, 208, 24);
@@ -623,14 +653,17 @@ void MainComponent::resized()
     label12->setBounds (559, 293, 72, 24);
     trigVolSlider->setBounds (408, 147, 140, 24);
     label7->setBounds (274, 146, 150, 24);
-    stopButton->setBounds (148, 448, 63, 24);
+    stopButton->setBounds (148, 453, 63, 24);
     copyButton->setBounds (596, 206, 63, 24);
-    velocityToggle->setBounds (52, 324, 150, 24);
-    releaseSlider->setBounds (53, 387, 140, 24);
-    releaseText->setBounds (51, 364, 155, 24);
-    lpToggle->setBounds (51, 194, 136, 24);
-    sleepText->setBounds (67, 218, 87, 20);
-    sleepBox->setBounds (72, 243, 104, 24);
+    velocityToggle->setBounds (51, 377, 150, 24);
+    releaseSlider->setBounds (52, 346, 140, 24);
+    releaseText->setBounds (51, 324, 155, 24);
+    lpToggle->setBounds (51, 175, 136, 24);
+    sleepText->setBounds (51, 199, 56, 32);
+    sleepBox->setBounds (96, 203, 96, 24);
+    pitchBox->setBounds (134, 288, 58, 24);
+    pitchText->setBounds (52, 280, 80, 40);
+    noteOffToggle->setBounds (51, 400, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -833,17 +866,15 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 			if (mInitStrings[n].startsWith("#MIDI"))
 				mInitStrings.remove(n);
 		}
-		if (velocityToggle->getToggleState()) {
-
-			String bStr = "#MIDI 3 ";
-			bStr += newLine;
-			mInitStrings.insert(0, bStr);
-		}
-		else {
-			String bStr = "#MIDI 1 ";
-			bStr += newLine;
-			mInitStrings.insert(0, bStr);
-		}
+		String bStr = "#MIDI ";
+		int m = 1;
+		if (velocityToggle->getToggleState())
+			m |= 2;
+		if (noteOffToggle->getToggleState())
+			m |= 4;
+		bStr += m;
+		bStr += newLine;
+		mInitStrings.insert(0, bStr);
 		updateInitWindow();
 
         //[/UserButtonCode_velocityToggle]
@@ -873,6 +904,27 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 		updateInitWindow();
 
         //[/UserButtonCode_lpToggle]
+    }
+    else if (buttonThatWasClicked == noteOffToggle)
+    {
+        //[UserButtonCode_noteOffToggle] -- add your button handler code here..
+
+		for (int n = 0; n < mInitStrings.size(); n++) {
+			if (mInitStrings[n].startsWith("#MIDI"))
+				mInitStrings.remove(n);
+		}
+		String bStr = "#MIDI ";
+		int m = 1;
+		if (velocityToggle->getToggleState())
+			m |= 2;
+		if (noteOffToggle->getToggleState())
+			m |= 4;
+		bStr += m;
+		bStr += newLine;
+		mInitStrings.insert(0, bStr);
+		updateInitWindow();
+
+        //[/UserButtonCode_noteOffToggle]
     }
 
     //[UserbuttonClicked_Post]
@@ -991,7 +1043,7 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     {
         //[UserComboBoxCode_baudBox] -- add your combo box handling code here..
 
-		// Look for and delete any existing BAUD, MIDI or MREL entries
+		// Look for and delete any existing BAUD, MIDI, MREL or BEND entries
 		for (int n = 0; n < mInitStrings.size(); n++) {
 			if (mInitStrings[n].startsWith("#BAUD"))
 				mInitStrings.remove(n);
@@ -1004,13 +1056,22 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 			if (mInitStrings[n].startsWith("#MREL"))
 				mInitStrings.remove(n);
 		}
+		for (int n = 0; n < mInitStrings.size(); n++) {
+			if (mInitStrings[n].startsWith("#BEND"))
+				mInitStrings.remove(n);
+		}
 		// Add an entry if not the default
 		if (baudBox->getSelectedId() < 6) {
 			releaseSlider->setEnabled(false);
 			velocityToggle->setEnabled(false);
+			noteOffToggle->setEnabled(false);
 			releaseText->setEnabled(false);
 			releaseSlider->setValue(0.0, dontSendNotification);
+			pitchBox->setEnabled(false);
+			pitchText->setEnabled(false);
+			pitchBox->setSelectedId(2, dontSendNotification);
 			velocityToggle->setToggleState(false, dontSendNotification);
+			noteOffToggle->setToggleState(false, dontSendNotification);
 			String bStr = "#BAUD ";
 			switch (baudBox->getSelectedId()) {
 				case 1:
@@ -1034,8 +1095,11 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 		}
 		else if (baudBox->getSelectedId() == 7) {
 			velocityToggle->setEnabled(true);
+			noteOffToggle->setEnabled(true);
 			releaseText->setEnabled(true);
 			releaseSlider->setEnabled(true);
+			pitchBox->setEnabled(true);
+			pitchText->setEnabled(true);
 			String bStr = "#MIDI 1 ";
 			bStr += newLine;
 			mInitStrings.insert(0, bStr);
@@ -1170,6 +1234,42 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 
         //[/UserComboBoxCode_sleepBox]
     }
+    else if (comboBoxThatHasChanged == pitchBox)
+    {
+        //[UserComboBoxCode_pitchBox] -- add your combo box handling code here..
+
+		// Look for and delete any existing BEND entry
+		for (int n = 0; n < mInitStrings.size(); n++) {
+			if (mInitStrings[n].startsWith("#BEND"))
+				mInitStrings.remove(n);
+		}
+		String bStr;
+		switch (pitchBox->getSelectedId()) {
+			case 1:
+				bStr += "#BEND 1";
+				bStr += newLine;
+				mInitStrings.insert(0, bStr);
+			break;
+			case 3:
+				bStr += "#BEND 3";
+				bStr += newLine;
+				mInitStrings.insert(0, bStr);
+			break;
+			case 4:
+				bStr += "#BEND 4";
+				bStr += newLine;
+				mInitStrings.insert(0, bStr);
+			break;
+			case 5:
+				bStr += "#BEND 5";
+				bStr += newLine;
+				mInitStrings.insert(0, bStr);
+			break;
+		}
+		updateInitWindow();
+
+        //[/UserComboBoxCode_pitchBox]
+    }
 
     //[UsercomboBoxChanged_Post]
     //[/UsercomboBoxChanged_Post]
@@ -1262,11 +1362,11 @@ BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component, public ChangeListener" constructorParams=""
-                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
+                 variableInitialisers="" snapPixels="8" snapActive="0" snapShown="1"
                  overlayOpacity="0.330" fixedSize="1" initialWidth="800" initialHeight="620">
   <BACKGROUND backgroundColour="ff2e4dab"/>
   <GROUPCOMPONENT name="new group" id="90ec82064f979d06" memberName="groupComponent4"
-                  virtualName="" explicitFocusOrder="0" pos="32 296 184 136" textcol="ffffffff"
+                  virtualName="" explicitFocusOrder="0" pos="32 259 184 178" textcol="ffffffff"
                   title="MIDI"/>
   <GROUPCOMPONENT name="new group" id="242a01730ad6db8e" memberName="groupComponent3"
                   virtualName="" explicitFocusOrder="0" pos="243 260 526 76" textcol="ffffffff"
@@ -1275,7 +1375,7 @@ BEGIN_JUCER_METADATA
                   virtualName="" explicitFocusOrder="0" pos="244 16 526 234" outlinecol="66000000"
                   textcol="ffffffff" title="Trigger Settings"/>
   <TEXTBUTTON name="" id="bcf4f7b0888effe5" memberName="quitButton" virtualName=""
-              explicitFocusOrder="0" pos="148 520 63 24" buttonText="Quit"
+              explicitFocusOrder="0" pos="148 525 63 24" buttonText="Quit"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="ef8d15cc5a4b63c3" memberName="statusBar"
          virtualName="" explicitFocusOrder="0" pos="0 0Rr 100% 24" bkgCol="ff8da3da"
@@ -1303,19 +1403,19 @@ BEGIN_JUCER_METADATA
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="0"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="b85453e71d7e819a" memberName="newButton"
-              virtualName="" explicitFocusOrder="0" pos="36 520 63 24" buttonText="New"
+              virtualName="" explicitFocusOrder="0" pos="36 525 63 24" buttonText="New"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save button" id="7f44c667d204efa4" memberName="saveButton"
-              virtualName="" explicitFocusOrder="0" pos="36 484 63 24" buttonText="Save"
+              virtualName="" explicitFocusOrder="0" pos="36 489 63 24" buttonText="Save"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="open button" id="aff16e2440c1e77e" memberName="openButton"
-              virtualName="" explicitFocusOrder="0" pos="36 449 63 24" buttonText="Open"
+              virtualName="" explicitFocusOrder="0" pos="36 454 63 24" buttonText="Open"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save as button" id="36951dd779d924d0" memberName="saveAsButton"
-              virtualName="" explicitFocusOrder="0" pos="148 484 63 24" buttonText="Save As"
+              virtualName="" explicitFocusOrder="0" pos="148 489 63 24" buttonText="Save As"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <GROUPCOMPONENT name="new group" id="6ec7de23acb7bc6f" memberName="groupComponent2"
-                  virtualName="" explicitFocusOrder="0" pos="32 16 184 272" textcol="ffffffff"
+                  virtualName="" explicitFocusOrder="0" pos="32 16 184 233" textcol="ffffffff"
                   title="System"/>
   <LABEL name="new label" id="55d41def757f7937" memberName="label2" virtualName=""
          explicitFocusOrder="0" pos="618 39 63 24" edTextCol="ff000000"
@@ -1333,24 +1433,24 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <COMBOBOX name="baud box" id="34072d5a8cd3a40e" memberName="baudBox" virtualName=""
-            explicitFocusOrder="0" pos="58 62 133 24" editable="0" layout="33"
+            explicitFocusOrder="0" pos="59 58 133 24" editable="0" layout="33"
             items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="b168245de12e2a99" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="52 37 105 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="52 34 105 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Serial Comm." editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <SLIDER name="volume slider" id="fbfedd66eca0907d" memberName="volSlider"
-          virtualName="" explicitFocusOrder="0" pos="52 123 140 24" rotarysliderfill="7f000000"
+          virtualName="" explicitFocusOrder="0" pos="52 112 140 24" rotarysliderfill="7f000000"
           min="-20" max="10" int="1" style="LinearHorizontal" textBoxPos="TextBoxRight"
           textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="new label" id="8236b56510d8f8c8" memberName="label22" virtualName=""
-         explicitFocusOrder="0" pos="51 100 150 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="51 90 150 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Output Volume (dB)" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <HYPERLINKBUTTON name="link button" id="f202f29b31c62ae" memberName="linkButton"
-                   virtualName="" explicitFocusOrder="0" pos="16 555 96 24" tooltip="http://robertsonics.com/wav-trigger-online-user-guide/"
+                   virtualName="" explicitFocusOrder="0" pos="34 557 68 24" tooltip="http://robertsonics.com/wav-trigger-online-user-guide/"
                    textCol="ffffffff" buttonText="Help" connectedEdges="0" needsCallback="1"
                    radioGroupId="0" url="http://robertsonics.com/wav-trigger-online-user-guide/"/>
   <TEXTEDITOR name="init text editor" id="affceb0f94323c59" memberName="initText"
@@ -1399,7 +1499,7 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <TOGGLEBUTTON name="amp toggle button" id="52afbea038eb88e6" memberName="ampToggle"
-                virtualName="" explicitFocusOrder="0" pos="51 157 136 24" buttonText="Audio Amp Power"
+                virtualName="" explicitFocusOrder="0" pos="51 145 136 24" buttonText="Audio Amp Power"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <LABEL name="new label" id="5a682e7a8a3d958d" memberName="label10" virtualName=""
          explicitFocusOrder="0" pos="243 338 125 24" textCol="fffffdfd"
@@ -1435,34 +1535,45 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="stop button" id="4b667057695aa760" memberName="stopButton"
-              virtualName="" explicitFocusOrder="0" pos="148 448 63 24" buttonText="StopAll"
+              virtualName="" explicitFocusOrder="0" pos="148 453 63 24" buttonText="StopAll"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="copy button" id="923548f55486380c" memberName="copyButton"
               virtualName="" explicitFocusOrder="0" pos="596 206 63 24" buttonText="Copy"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="velocity toggle button" id="f4db3cfaede9e9fd" memberName="velocityToggle"
-                virtualName="" explicitFocusOrder="0" pos="52 324 150 24" buttonText="Disable Velocity"
+                virtualName="" explicitFocusOrder="0" pos="51 377 150 24" buttonText="Ignore Velocity"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <SLIDER name="release slider" id="15aa3da61a7b51ad" memberName="releaseSlider"
-          virtualName="" explicitFocusOrder="0" pos="53 387 140 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="52 346 140 24" min="0"
           max="127" int="1" style="LinearHorizontal" textBoxPos="TextBoxRight"
           textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="new label" id="cdfea73ff3c1eb4b" memberName="releaseText"
-         virtualName="" explicitFocusOrder="0" pos="51 364 155 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="51 324 155 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Default Release (msec)" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <TOGGLEBUTTON name="lp toggle button" id="4a8fb34d9cce4629" memberName="lpToggle"
-                virtualName="" explicitFocusOrder="0" pos="51 194 136 24" buttonText="Low Power Option"
+                virtualName="" explicitFocusOrder="0" pos="51 175 136 24" buttonText="Low Power Option"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <LABEL name="new label" id="29ad17d33c6f6ae8" memberName="sleepText"
-         virtualName="" explicitFocusOrder="0" pos="67 218 87 20" edTextCol="ff000000"
-         edBkgCol="0" labelText="Sleep After" editableSingleClick="0"
+         virtualName="" explicitFocusOrder="0" pos="51 199 56 32" edTextCol="ff000000"
+         edBkgCol="0" labelText="Sleep&#10;After" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <COMBOBOX name="sleep box" id="9459a97eaead09f6" memberName="sleepBox"
-            virtualName="" explicitFocusOrder="0" pos="72 243 104 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="96 203 96 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
+  <COMBOBOX name="pitch box" id="7d52d2e9e85b09c8" memberName="pitchBox"
+            virtualName="" explicitFocusOrder="0" pos="134 288 58 24" editable="0"
+            layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
+  <LABEL name="new label" id="e118a36298cb29b5" memberName="pitchText"
+         virtualName="" explicitFocusOrder="0" pos="52 280 80 40" edTextCol="ff000000"
+         edBkgCol="0" labelText="Pitch Bend&#10;Semitones" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="0" italic="0" justification="33"/>
+  <TOGGLEBUTTON name="noteOff toggle button" id="9133c3e894575bc8" memberName="noteOffToggle"
+                virtualName="" explicitFocusOrder="0" pos="51 400 150 24" buttonText="Ignore Note-Offs"
+                connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
