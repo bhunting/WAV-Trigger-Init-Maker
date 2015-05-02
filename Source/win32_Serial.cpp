@@ -96,13 +96,17 @@ bool SerialPort::open(const String & portPath)
 		commTimeout.WriteTotalTimeoutConstant = 0;
 		commTimeout.WriteTotalTimeoutMultiplier = 0;
 	}
-	else
+	else {
 		DBG("GetCommTimeouts error");
-	if(!SetCommTimeouts(portHandle, &commTimeout))
-		DBG("SetCommTimeouts error");
+	}
 
-	if(!SetCommMask(portHandle,EV_RXCHAR))
+	if(!SetCommTimeouts(portHandle, &commTimeout)) {
+		DBG("SetCommTimeouts error");
+	}
+
+	if(!SetCommMask(portHandle,EV_RXCHAR)) {
 		DBG("SetCommMask error");
+	}
 
 	return true;
 }
@@ -116,7 +120,7 @@ bool SerialPort::setConfig(const SerialPortConfig & config)
 	dcb.XonLim = 2048;
 	dcb.XoffLim = 512;
 	dcb.BaudRate = config.bps;
-	dcb.ByteSize = config.databits;
+	dcb.ByteSize = (byte)config.databits;
 	dcb.fParity = true;
 	switch(config.parity)
 	{

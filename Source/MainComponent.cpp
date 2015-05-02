@@ -384,6 +384,10 @@ MainComponent::MainComponent ()
     noteOffToggle->setButtonText (TRANS("Ignore Note-Offs"));
     noteOffToggle->addListener (this);
 
+    addAndMakeVisible (loopToggle = new ToggleButton ("new toggle button"));
+    loopToggle->setButtonText (TRANS("Loop"));
+    loopToggle->addListener (this);
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -459,6 +463,7 @@ MainComponent::MainComponent ()
 
 	typeBox->addItem("Edge", 1);
 	typeBox->addItem("Level", 2);
+	typeBox->addItem("Latch", 3);
 
 	lowText->setInputRestrictions(3, "0123456789");
 	highText->setInputRestrictions(3, "0123456789");
@@ -588,6 +593,7 @@ MainComponent::~MainComponent()
     pitchBox = nullptr;
     pitchText = nullptr;
     noteOffToggle = nullptr;
+    loopToggle = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -608,6 +614,9 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
+    //[UserPreResize] Add your own custom resize code here..
+    //[/UserPreResize]
+
     groupComponent4->setBounds (32, 259, 184, 178);
     groupComponent3->setBounds (243, 260, 526, 76);
     groupComponent->setBounds (244, 16, 526, 234);
@@ -615,8 +624,8 @@ void MainComponent::resized()
     statusBar->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
     functionBox->setBounds (624, 62, 112, 24);
     typeBox->setBounds (510, 62, 98, 24);
-    invertToggle->setBounds (273, 105, 108, 24);
-    polyToggle->setBounds (504, 105, 96, 24);
+    invertToggle->setBounds (273, 105, 65, 24);
+    polyToggle->setBounds (447, 105, 96, 24);
     lowText->setBounds (624, 117, 39, 20);
     highText->setBounds (696, 117, 39, 20);
     newButton->setBounds (36, 525, 63, 24);
@@ -640,7 +649,7 @@ void MainComponent::resized()
     deleteButton->setBounds (516, 206, 63, 24);
     label5->setBounds (271, 38, 56, 24);
     label6->setBounds (344, 38, 141, 24);
-    retriggerToggle->setBounds (392, 105, 95, 24);
+    retriggerToggle->setBounds (343, 105, 95, 24);
     resetButton->setBounds (276, 206, 63, 24);
     label8->setBounds (619, 135, 40, 24);
     label9->setBounds (691, 136, 40, 24);
@@ -664,6 +673,7 @@ void MainComponent::resized()
     pitchBox->setBounds (134, 288, 58, 24);
     pitchText->setBounds (52, 280, 80, 40);
     noteOffToggle->setBounds (51, 400, 150, 24);
+    loopToggle->setBounds (546, 106, 62, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -926,6 +936,11 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 
         //[/UserButtonCode_noteOffToggle]
     }
+    else if (buttonThatWasClicked == loopToggle)
+    {
+        //[UserButtonCode_loopToggle] -- add your button handler code here..
+        //[/UserButtonCode_loopToggle]
+    }
 
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
@@ -1030,10 +1045,22 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 			case 1: // Edge
 				retriggerToggle->setEnabled(true);
 				retriggerToggle->setToggleState(true, dontSendNotification);
+				loopToggle->setEnabled(true);
+				loopToggle->setToggleState(false, dontSendNotification);
 			break;
-			default: // Level
+			case 2: // Level
 				retriggerToggle->setEnabled(false);
 				retriggerToggle->setToggleState(false, dontSendNotification);
+				loopToggle->setEnabled(false);
+				loopToggle->setToggleState(false, dontSendNotification);
+			break;
+			case 3: // Latched
+				retriggerToggle->setEnabled(true);
+				retriggerToggle->setToggleState(false, dontSendNotification);
+				loopToggle->setEnabled(false);
+				loopToggle->setToggleState(false, dontSendNotification);
+			break;
+			default:
 			break;
 		}
 
@@ -1390,10 +1417,10 @@ BEGIN_JUCER_METADATA
             explicitFocusOrder="0" pos="510 62 98 24" editable="0" layout="33"
             items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <TOGGLEBUTTON name="invert toggle" id="a46ca2e5cccc18cc" memberName="invertToggle"
-                virtualName="" explicitFocusOrder="0" pos="273 105 108 24" buttonText="Invert"
+                virtualName="" explicitFocusOrder="0" pos="273 105 65 24" buttonText="Invert"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="poly toggle" id="429d46bb36488187" memberName="polyToggle"
-                virtualName="" explicitFocusOrder="0" pos="504 105 96 24" buttonText="Polyphonic"
+                virtualName="" explicitFocusOrder="0" pos="447 105 96 24" buttonText="Polyphonic"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TEXTEDITOR name="low text" id="34a63e8887bfc5f3" memberName="lowText" virtualName=""
               explicitFocusOrder="0" pos="624 117 39 20" initialText="" multiline="0"
@@ -1483,7 +1510,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <TOGGLEBUTTON name="retrigger toggle button" id="f81a36913a0b030d" memberName="retriggerToggle"
-                virtualName="" explicitFocusOrder="0" pos="392 105 95 24" buttonText="Re-Triggers"
+                virtualName="" explicitFocusOrder="0" pos="343 105 95 24" buttonText="Re-Triggers"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TEXTBUTTON name="reset button" id="4dc7d5288c0df2c4" memberName="resetButton"
               virtualName="" explicitFocusOrder="0" pos="276 206 63 24" buttonText="Reset"
@@ -1573,6 +1600,9 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="0" italic="0" justification="33"/>
   <TOGGLEBUTTON name="noteOff toggle button" id="9133c3e894575bc8" memberName="noteOffToggle"
                 virtualName="" explicitFocusOrder="0" pos="51 400 150 24" buttonText="Ignore Note-Offs"
+                connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
+  <TOGGLEBUTTON name="new toggle button" id="352d2b82ce0335a5" memberName="loopToggle"
+                virtualName="" explicitFocusOrder="0" pos="546 106 62 24" buttonText="Loop"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
 </JUCER_COMPONENT>
 

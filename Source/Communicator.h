@@ -24,7 +24,7 @@ typedef struct {
 	int hardware;
 	bool invert;
 	int type;
-	bool retrigger;
+	int retrigger;
 	bool polyphonic;
 	int function;
 	int volume;

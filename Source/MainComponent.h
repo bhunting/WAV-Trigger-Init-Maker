@@ -140,6 +140,7 @@ private:
     ScopedPointer<ComboBox> pitchBox;
     ScopedPointer<Label> pitchText;
     ScopedPointer<ToggleButton> noteOffToggle;
+    ScopedPointer<ToggleButton> loopToggle;
 
 
     //==============================================================================
