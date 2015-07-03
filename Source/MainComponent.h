@@ -60,6 +60,7 @@ public:
 	void deleteInitString(int n);
 	void updateInitWindow(void);
 	void save(File saveFile);
+	void open(File openFile);
 	void changeListenerCallback(ChangeBroadcaster *);
 
     //[/UserMethods]
@@ -96,7 +97,6 @@ private:
     ScopedPointer<TextEditor> lowText;
     ScopedPointer<TextEditor> highText;
     ScopedPointer<TextButton> newButton;
-    ScopedPointer<TextButton> saveButton;
     ScopedPointer<TextButton> openButton;
     ScopedPointer<TextButton> saveAsButton;
     ScopedPointer<GroupComponent> groupComponent2;
