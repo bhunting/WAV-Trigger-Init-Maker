@@ -465,8 +465,8 @@ MainComponent::MainComponent ()
 	typeBox->addItem("Level", 2);
 	typeBox->addItem("Latch", 3);
 
-	lowText->setInputRestrictions(3, "0123456789");
-	highText->setInputRestrictions(3, "0123456789");
+	lowText->setInputRestrictions(4, "0123456789");
+	highText->setInputRestrictions(4, "0123456789");
 
 	Font font;
 	font.setTypefaceName(Font::getDefaultMonospacedFontName());
