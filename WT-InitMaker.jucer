@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="tTAKTK1s" name="WT-InitMaker" projectType="guiapp" juceLinkage="amalg_multi"
-              juceFolder="../../../juce" jucerVersion="3.1.0" version="1.0.0"
+              juceFolder="../../../juce" jucerVersion="4.3.0" version="1.0.0"
               buildVST="1" buildRTAS="0" buildAU="1" vstFolderMac="~/SDKs/vstsdk2.4"
               vstFolderPC="c:\SDKs\vstsdk2.4" rtasFolderMac="~/SDKs/PT_80_SDK"
               rtasFolderPC="c:\SDKs\PT_80_SDK" pluginName="HelloWorld" pluginDesc="HelloWorld"
@@ -13,7 +13,7 @@
               companyName="Robertsonics" includeBinaryInAppConfig="1">
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="~/SDKs/vstsdk2.4" rtasFolder="~/SDKs/PT_80_SDK"
-               objCExtraSuffix="JtTAKTK1s">
+               objCExtraSuffix="JtTAKTK1s" smallIcon="eTSqVh" bigIcon="eTSqVh">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="WT-InitMaker"
                        osxSDK="1" osxCompatibility="10.6 SDK" osxArchitecture="default"/>
@@ -29,13 +29,24 @@
         <MODULEPATH id="juce_core" path="/Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <VS2008 targetFolder="Builds/VisualStudio2008" vstFolder="c:\SDKs\vstsdk2.4"
-            rtasFolder="c:\SDKs\PT_80_SDK" libraryType="1" externalLibraries="Setupapi.lib">
+    <LINUX_MAKE targetFolder="Builds/Linux" bigIcon="eTSqVh" smallIcon="eTSqVh">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="WT-InitMaker"
-                       winWarningLevel="4" generateManifest="1"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="WT-InitMaker"
-                       winWarningLevel="4" generateManifest="1"/>
+        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
+                       targetName="WT-InitMaker"/>
+        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
+                       targetName="WT-InitMaker"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+    <VS2015 targetFolder="Builds/VisualStudio2015" vstFolder="" externalLibraries="Setupapi.lib"
+            smallIcon="eTSqVh" bigIcon="eTSqVh">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="1" optimisation="1" targetName="WT-InitMaker"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="0" optimisation="3" targetName="WT-InitMaker"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="c:/Juce/modules"/>
@@ -45,18 +56,12 @@
         <MODULEPATH id="juce_data_structures" path="c:/Juce/modules"/>
         <MODULEPATH id="juce_core" path="c:/Juce/modules"/>
       </MODULEPATHS>
-    </VS2008>
-    <LINUX_MAKE targetFolder="Builds/Linux">
-      <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
-                       targetName="WT-InitMaker"/>
-        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
-                       targetName="WT-InitMaker"/>
-      </CONFIGURATIONS>
-    </LINUX_MAKE>
+    </VS2015>
   </EXPORTFORMATS>
   <MAINGROUP id="a0m6ZvX1F" name="WT-InitMaker">
     <GROUP id="GVpTv8yA5" name="Source">
+      <FILE id="eTSqVh" name="WTrigGear256.png" compile="0" resource="1"
+            file="Source/WTrigGear256.png"/>
       <FILE id="YpnTDb" name="Commands.h" compile="0" resource="0" file="Source/Commands.h"/>
       <FILE id="W3k3gN" name="Communicator.cpp" compile="1" resource="0"
             file="Source/Communicator.cpp"/>

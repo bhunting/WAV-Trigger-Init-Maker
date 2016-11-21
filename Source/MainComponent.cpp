@@ -1,18 +1,18 @@
 /*
   ==============================================================================
 
-  This is an automatically generated GUI class created by the Introjucer!
+  This is an automatically generated GUI class created by the Projucer!
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Introjucer version: 3.1.0
+  Created with Projucer version: 4.3.0
 
   ------------------------------------------------------------------------------
 
-  The Introjucer is part of the JUCE library - "Jules' Utility Class Extensions"
-  Copyright 2004-13 by Raw Material Software Ltd.
+  The Projucer is part of the JUCE library - "Jules' Utility Class Extensions"
+  Copyright (c) 2015 - ROLI Ltd.
 
   ==============================================================================
 */
@@ -32,25 +32,28 @@
 //==============================================================================
 MainComponent::MainComponent ()
 {
+    //[Constructor_pre] You can add your own custom stuff here..
+    //[/Constructor_pre]
+
     addAndMakeVisible (groupComponent4 = new GroupComponent ("new group",
                                                              TRANS("MIDI")));
-    groupComponent4->setColour (GroupComponent::textColourId, Colours::white);
+    groupComponent4->setColour (GroupComponent::textColourId, Colour (0x9effffff));
 
     addAndMakeVisible (groupComponent3 = new GroupComponent ("new group",
                                                              TRANS("Trigger Test COM Port (optional)")));
-    groupComponent3->setColour (GroupComponent::textColourId, Colours::white);
+    groupComponent3->setColour (GroupComponent::textColourId, Colour (0x9effffff));
 
     addAndMakeVisible (groupComponent = new GroupComponent ("new group",
                                                             TRANS("Trigger Settings")));
     groupComponent->setColour (GroupComponent::outlineColourId, Colour (0x66000000));
-    groupComponent->setColour (GroupComponent::textColourId, Colours::white);
+    groupComponent->setColour (GroupComponent::textColourId, Colour (0x9effffff));
 
-    addAndMakeVisible (quitButton = new TextButton (String::empty));
+    addAndMakeVisible (quitButton = new TextButton (String()));
     quitButton->setButtonText (TRANS("Quit"));
     quitButton->addListener (this);
 
     addAndMakeVisible (statusBar = new Label ("new label",
-                                              String::empty));
+                                              String()));
     statusBar->setFont (Font (15.00f, Font::plain));
     statusBar->setJustificationType (Justification::centredLeft);
     statusBar->setEditable (false, false, false);
@@ -63,14 +66,14 @@ MainComponent::MainComponent ()
     addAndMakeVisible (functionBox = new ComboBox ("function box"));
     functionBox->setEditableText (false);
     functionBox->setJustificationType (Justification::centredLeft);
-    functionBox->setTextWhenNothingSelected (String::empty);
+    functionBox->setTextWhenNothingSelected (String());
     functionBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     functionBox->addListener (this);
 
     addAndMakeVisible (typeBox = new ComboBox ("type box"));
     typeBox->setEditableText (false);
     typeBox->setJustificationType (Justification::centredLeft);
-    typeBox->setTextWhenNothingSelected (String::empty);
+    typeBox->setTextWhenNothingSelected (String());
     typeBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     typeBox->addListener (this);
 
@@ -89,7 +92,7 @@ MainComponent::MainComponent ()
     lowText->setScrollbarsShown (false);
     lowText->setCaretVisible (true);
     lowText->setPopupMenuEnabled (true);
-    lowText->setText (String::empty);
+    lowText->setText (String());
 
     addAndMakeVisible (highText = new TextEditor ("high text"));
     highText->setMultiLine (false);
@@ -98,7 +101,7 @@ MainComponent::MainComponent ()
     highText->setScrollbarsShown (false);
     highText->setCaretVisible (true);
     highText->setPopupMenuEnabled (true);
-    highText->setText (String::empty);
+    highText->setText (String());
 
     addAndMakeVisible (newButton = new TextButton ("new button"));
     newButton->setButtonText (TRANS("New"));
@@ -114,7 +117,7 @@ MainComponent::MainComponent ()
 
     addAndMakeVisible (groupComponent2 = new GroupComponent ("new group",
                                                              TRANS("System")));
-    groupComponent2->setColour (GroupComponent::textColourId, Colours::white);
+    groupComponent2->setColour (GroupComponent::textColourId, Colour (0x9effffff));
 
     addAndMakeVisible (label2 = new Label ("new label",
                                            TRANS("Function")));
@@ -143,7 +146,7 @@ MainComponent::MainComponent ()
     addAndMakeVisible (baudBox = new ComboBox ("baud box"));
     baudBox->setEditableText (false);
     baudBox->setJustificationType (Justification::centredLeft);
-    baudBox->setTextWhenNothingSelected (String::empty);
+    baudBox->setTextWhenNothingSelected (String());
     baudBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     baudBox->addListener (this);
 
@@ -175,7 +178,7 @@ MainComponent::MainComponent ()
     linkButton->setTooltip (TRANS("http://robertsonics.com/wav-trigger-online-user-guide/"));
     linkButton->setButtonText (TRANS("Help"));
     linkButton->addListener (this);
-    linkButton->setColour (HyperlinkButton::textColourId, Colours::white);
+    linkButton->setColour (HyperlinkButton::textColourId, Colour (0x9effffff));
 
     addAndMakeVisible (initText = new TextEditor ("init text editor"));
     initText->setMultiLine (true);
@@ -184,19 +187,19 @@ MainComponent::MainComponent ()
     initText->setScrollbarsShown (true);
     initText->setCaretVisible (true);
     initText->setPopupMenuEnabled (true);
-    initText->setText (String::empty);
+    initText->setText (String());
 
     addAndMakeVisible (triggerBox = new ComboBox ("trigger combo box"));
     triggerBox->setEditableText (false);
     triggerBox->setJustificationType (Justification::centredLeft);
-    triggerBox->setTextWhenNothingSelected (String::empty);
+    triggerBox->setTextWhenNothingSelected (String());
     triggerBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     triggerBox->addListener (this);
 
     addAndMakeVisible (interfaceBox = new ComboBox ("interface combo box"));
     interfaceBox->setEditableText (false);
     interfaceBox->setJustificationType (Justification::centredLeft);
-    interfaceBox->setTextWhenNothingSelected (String::empty);
+    interfaceBox->setTextWhenNothingSelected (String());
     interfaceBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     interfaceBox->addListener (this);
 
@@ -261,7 +264,7 @@ MainComponent::MainComponent ()
     label10->setFont (Font (15.00f, Font::plain));
     label10->setJustificationType (Justification::centredLeft);
     label10->setEditable (false, false, false);
-    label10->setColour (Label::textColourId, Colour (0xfffffdfd));
+    label10->setColour (Label::textColourId, Colour (0x9effffff));
     label10->setColour (TextEditor::textColourId, Colours::black);
     label10->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
@@ -273,7 +276,7 @@ MainComponent::MainComponent ()
     addAndMakeVisible (portBox = new ComboBox ("new combo box"));
     portBox->setEditableText (false);
     portBox->setJustificationType (Justification::centredLeft);
-    portBox->setTextWhenNothingSelected (String::empty);
+    portBox->setTextWhenNothingSelected (String());
     portBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     portBox->addListener (this);
 
@@ -288,7 +291,7 @@ MainComponent::MainComponent ()
     addAndMakeVisible (testBaudBox = new ComboBox ("new combo box"));
     testBaudBox->setEditableText (false);
     testBaudBox->setJustificationType (Justification::centredLeft);
-    testBaudBox->setTextWhenNothingSelected (String::empty);
+    testBaudBox->setTextWhenNothingSelected (String());
     testBaudBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     testBaudBox->addListener (this);
 
@@ -356,14 +359,14 @@ MainComponent::MainComponent ()
     addAndMakeVisible (sleepBox = new ComboBox ("sleep box"));
     sleepBox->setEditableText (false);
     sleepBox->setJustificationType (Justification::centredLeft);
-    sleepBox->setTextWhenNothingSelected (String::empty);
+    sleepBox->setTextWhenNothingSelected (String());
     sleepBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     sleepBox->addListener (this);
 
     addAndMakeVisible (pitchBox = new ComboBox ("pitch box"));
     pitchBox->setEditableText (false);
     pitchBox->setJustificationType (Justification::centredLeft);
-    pitchBox->setTextWhenNothingSelected (String::empty);
+    pitchBox->setTextWhenNothingSelected (String());
     pitchBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     pitchBox->addListener (this);
 
@@ -384,11 +387,30 @@ MainComponent::MainComponent ()
     loopToggle->setButtonText (TRANS("Loop"));
     loopToggle->addListener (this);
 
+    addAndMakeVisible (lockToggle = new ToggleButton ("lock toggle"));
+    lockToggle->setButtonText (TRANS("Lock Voice"));
+    lockToggle->addListener (this);
+
+    addAndMakeVisible (channelBox = new ComboBox ("channel box"));
+    channelBox->setEditableText (false);
+    channelBox->setJustificationType (Justification::centredRight);
+    channelBox->setTextWhenNothingSelected (String());
+    channelBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    channelBox->addListener (this);
+
+    addAndMakeVisible (channelText = new Label ("new label",
+                                                TRANS("Channel")));
+    channelText->setFont (Font (15.00f, Font::plain));
+    channelText->setJustificationType (Justification::centredLeft);
+    channelText->setEditable (false, false, false);
+    channelText->setColour (TextEditor::textColourId, Colours::black);
+    channelText->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (800, 620);
+    setSize (800, 640);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -433,6 +455,24 @@ MainComponent::MainComponent ()
 	pitchBox->addItem("4", 4);
 	pitchBox->addItem("5", 5);
 
+	channelBox->addItem("Omni", 1);
+	channelBox->addItem("1", 2);
+	channelBox->addItem("2", 3);
+	channelBox->addItem("3", 4);
+	channelBox->addItem("4", 5);
+	channelBox->addItem("5", 6);
+	channelBox->addItem("6", 7);
+	channelBox->addItem("7", 8);
+	channelBox->addItem("8", 9);
+	channelBox->addItem("9", 10);
+	channelBox->addItem("10", 11);
+	channelBox->addItem("11", 12);
+	channelBox->addItem("12", 13);
+	channelBox->addItem("13", 14);
+	channelBox->addItem("14", 15);
+	channelBox->addItem("15", 16);
+	channelBox->addItem("16", 17);
+
 	String st;
 	for (int i = 1; i < 17; i++) {
 		st = "";
@@ -454,6 +494,8 @@ MainComponent::MainComponent ()
 	functionBox->addItem("Volume Dn", 9);
 	functionBox->addItem("MIDI Bank Up", 10);
 	functionBox->addItem("MIDI Bank Dn", 11);
+	functionBox->addItem("Trig Bank Up", 12);
+	functionBox->addItem("Trig Bank Dn", 13);
 
 	typeBox->addItem("Edge", 1);
 	typeBox->addItem("Level", 2);
@@ -587,6 +629,9 @@ MainComponent::~MainComponent()
     pitchText = nullptr;
     noteOffToggle = nullptr;
     loopToggle = nullptr;
+    lockToggle = nullptr;
+    channelBox = nullptr;
+    channelText = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -599,7 +644,7 @@ void MainComponent::paint (Graphics& g)
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (Colour (0xff2e4dab));
+    g.fillAll (Colour (0xff4d66b6));
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
@@ -610,62 +655,65 @@ void MainComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    groupComponent4->setBounds (32, 259, 184, 178);
-    groupComponent3->setBounds (243, 260, 526, 76);
-    groupComponent->setBounds (244, 16, 526, 234);
-    quitButton->setBounds (148, 525, 63, 24);
+    groupComponent4->setBounds (32, 259, 184, 220);
+    groupComponent3->setBounds (243, 276, 526, 76);
+    groupComponent->setBounds (244, 16, 526, 249);
+    quitButton->setBounds (148, 533, 63, 24);
     statusBar->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
     functionBox->setBounds (625, 62, 112, 24);
     typeBox->setBounds (510, 62, 98, 24);
     invertToggle->setBounds (273, 105, 65, 24);
     polyToggle->setBounds (447, 105, 96, 24);
-    lowText->setBounds (626, 117, 44, 20);
-    highText->setBounds (692, 117, 44, 20);
-    newButton->setBounds (36, 525, 63, 24);
-    openButton->setBounds (36, 454, 63, 24);
-    saveAsButton->setBounds (36, 489, 63, 24);
+    lowText->setBounds (626, 129, 44, 20);
+    highText->setBounds (692, 129, 44, 20);
+    newButton->setBounds (36, 571, 63, 24);
+    openButton->setBounds (36, 500, 63, 24);
+    saveAsButton->setBounds (36, 535, 63, 24);
     groupComponent2->setBounds (32, 16, 184, 233);
     label2->setBounds (619, 39, 63, 24);
     label3->setBounds (505, 38, 47, 24);
-    label4->setBounds (619, 94, 87, 24);
+    label4->setBounds (619, 106, 87, 24);
     baudBox->setBounds (59, 58, 133, 24);
     label->setBounds (52, 34, 105, 24);
     volSlider->setBounds (52, 112, 140, 24);
     label22->setBounds (51, 90, 150, 24);
-    linkButton->setBounds (34, 557, 68, 24);
-    initText->setBounds (248, 361, 520, 215);
+    linkButton->setBounds (145, 570, 68, 24);
+    initText->setBounds (248, 381, 520, 215);
     triggerBox->setBounds (277, 62, 56, 24);
     interfaceBox->setBounds (350, 62, 143, 24);
-    addButton->setBounds (356, 206, 63, 24);
-    updateButton->setBounds (436, 206, 63, 24);
-    deleteButton->setBounds (516, 206, 63, 24);
+    addButton->setBounds (356, 221, 63, 24);
+    updateButton->setBounds (436, 221, 63, 24);
+    deleteButton->setBounds (516, 221, 63, 24);
     label5->setBounds (271, 38, 56, 24);
     label6->setBounds (344, 38, 141, 24);
     retriggerToggle->setBounds (343, 105, 95, 24);
-    resetButton->setBounds (276, 206, 63, 24);
-    label8->setBounds (621, 135, 40, 24);
-    label9->setBounds (687, 136, 40, 24);
+    resetButton->setBounds (276, 221, 63, 24);
+    label8->setBounds (621, 147, 40, 24);
+    label9->setBounds (687, 148, 40, 24);
     ampToggle->setBounds (51, 145, 136, 24);
-    label10->setBounds (243, 338, 125, 24);
-    testButton->setBounds (676, 206, 63, 24);
-    portBox->setBounds (323, 292, 208, 24);
-    label11->setBounds (275, 292, 48, 24);
-    testBaudBox->setBounds (632, 292, 104, 24);
-    label12->setBounds (559, 293, 72, 24);
-    trigVolSlider->setBounds (408, 147, 140, 24);
-    label7->setBounds (274, 146, 150, 24);
-    stopButton->setBounds (148, 453, 63, 24);
-    copyButton->setBounds (596, 206, 63, 24);
-    velocityToggle->setBounds (51, 377, 150, 24);
-    releaseSlider->setBounds (52, 346, 140, 24);
-    releaseText->setBounds (51, 324, 155, 24);
+    label10->setBounds (243, 357, 125, 24);
+    testButton->setBounds (676, 221, 63, 24);
+    portBox->setBounds (323, 308, 208, 24);
+    label11->setBounds (275, 308, 48, 24);
+    testBaudBox->setBounds (632, 308, 104, 24);
+    label12->setBounds (559, 309, 72, 24);
+    trigVolSlider->setBounds (408, 180, 140, 24);
+    label7->setBounds (274, 179, 150, 24);
+    stopButton->setBounds (148, 499, 63, 24);
+    copyButton->setBounds (596, 221, 63, 24);
+    velocityToggle->setBounds (51, 419, 150, 24);
+    releaseSlider->setBounds (52, 388, 140, 24);
+    releaseText->setBounds (51, 366, 155, 24);
     lpToggle->setBounds (51, 175, 136, 24);
     sleepText->setBounds (51, 199, 56, 32);
     sleepBox->setBounds (96, 203, 96, 24);
-    pitchBox->setBounds (134, 288, 58, 24);
-    pitchText->setBounds (52, 280, 80, 40);
-    noteOffToggle->setBounds (51, 400, 150, 24);
+    pitchBox->setBounds (134, 330, 58, 24);
+    pitchText->setBounds (52, 322, 80, 40);
+    noteOffToggle->setBounds (51, 442, 150, 24);
     loopToggle->setBounds (546, 106, 62, 24);
+    lockToggle->setBounds (273, 138, 93, 24);
+    channelBox->setBounds (118, 289, 74, 24);
+    channelText->setBounds (51, 288, 62, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -938,6 +986,11 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_loopToggle] -- add your button handler code here..
         //[/UserButtonCode_loopToggle]
     }
+    else if (buttonThatWasClicked == lockToggle)
+    {
+        //[UserButtonCode_lockToggle] -- add your button handler code here..
+        //[/UserButtonCode_lockToggle]
+    }
 
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
@@ -1084,6 +1137,10 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 			if (mInitStrings[n].startsWith("#BEND"))
 				mInitStrings.remove(n);
 		}
+		for (int n = 0; n < mInitStrings.size(); n++) {
+			if (mInitStrings[n].startsWith("#MCHN"))
+				mInitStrings.remove(n);
+		}
 		// Add an entry if not the default
 		if (baudBox->getSelectedId() < 6) {
 			releaseSlider->setEnabled(false);
@@ -1094,6 +1151,9 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 			pitchBox->setEnabled(false);
 			pitchText->setEnabled(false);
 			pitchBox->setSelectedId(2, dontSendNotification);
+			channelBox->setEnabled(false);
+			channelText->setEnabled(false);
+			channelBox->setSelectedId(1, dontSendNotification);
 			velocityToggle->setToggleState(false, dontSendNotification);
 			noteOffToggle->setToggleState(false, dontSendNotification);
 			String bStr = "#BAUD ";
@@ -1124,6 +1184,8 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 			releaseSlider->setEnabled(true);
 			pitchBox->setEnabled(true);
 			pitchText->setEnabled(true);
+			channelBox->setEnabled(true);
+			channelText->setEnabled(true);
 			String bStr = "#MIDI 1 ";
 			bStr += newLine;
 			mInitStrings.insert(0, bStr);
@@ -1294,6 +1356,26 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 
         //[/UserComboBoxCode_pitchBox]
     }
+    else if (comboBoxThatHasChanged == channelBox)
+    {
+        //[UserComboBoxCode_channelBox] -- add your combo box handling code here..
+
+		for (int n = 0; n < mInitStrings.size(); n++) {
+			if (mInitStrings[n].startsWith("#MCHN"))
+				mInitStrings.remove(n);
+		}
+		int c = channelBox->getSelectedId();
+		if (c > 1) {
+			String cStr;
+			cStr += "#MCHN ";
+			cStr += (c - 1);
+			cStr += newLine;
+			mInitStrings.insert(0, cStr);
+		}
+		updateInitWindow();
+
+        //[/UserComboBoxCode_channelBox]
+    }
 
     //[UsercomboBoxChanged_Post]
     //[/UsercomboBoxChanged_Post]
@@ -1377,9 +1459,9 @@ void MainComponent::changeListenerCallback(ChangeBroadcaster *)
 
 //==============================================================================
 #if 0
-/*  -- Introjucer information section --
+/*  -- Projucer information section --
 
-    This is where the Introjucer stores the metadata that describe this GUI layout, so
+    This is where the Projucer stores the metadata that describe this GUI layout, so
     make changes in here at your peril!
 
 BEGIN_JUCER_METADATA
@@ -1387,19 +1469,19 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component, public ChangeListener" constructorParams=""
                  variableInitialisers="" snapPixels="8" snapActive="0" snapShown="1"
-                 overlayOpacity="0.330" fixedSize="1" initialWidth="800" initialHeight="620">
-  <BACKGROUND backgroundColour="ff2e4dab"/>
+                 overlayOpacity="0.330" fixedSize="1" initialWidth="800" initialHeight="640">
+  <BACKGROUND backgroundColour="ff4d66b6"/>
   <GROUPCOMPONENT name="new group" id="90ec82064f979d06" memberName="groupComponent4"
-                  virtualName="" explicitFocusOrder="0" pos="32 259 184 178" textcol="ffffffff"
+                  virtualName="" explicitFocusOrder="0" pos="32 259 184 220" textcol="9effffff"
                   title="MIDI"/>
   <GROUPCOMPONENT name="new group" id="242a01730ad6db8e" memberName="groupComponent3"
-                  virtualName="" explicitFocusOrder="0" pos="243 260 526 76" textcol="ffffffff"
+                  virtualName="" explicitFocusOrder="0" pos="243 276 526 76" textcol="9effffff"
                   title="Trigger Test COM Port (optional)"/>
   <GROUPCOMPONENT name="new group" id="38c25bfaed540c9a" memberName="groupComponent"
-                  virtualName="" explicitFocusOrder="0" pos="244 16 526 234" outlinecol="66000000"
-                  textcol="ffffffff" title="Trigger Settings"/>
+                  virtualName="" explicitFocusOrder="0" pos="244 16 526 249" outlinecol="66000000"
+                  textcol="9effffff" title="Trigger Settings"/>
   <TEXTBUTTON name="" id="bcf4f7b0888effe5" memberName="quitButton" virtualName=""
-              explicitFocusOrder="0" pos="148 525 63 24" buttonText="Quit"
+              explicitFocusOrder="0" pos="148 533 63 24" buttonText="Quit"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="ef8d15cc5a4b63c3" memberName="statusBar"
          virtualName="" explicitFocusOrder="0" pos="0 0Rr 100% 24" bkgCol="ff8da3da"
@@ -1420,23 +1502,23 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="447 105 96 24" buttonText="Polyphonic"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TEXTEDITOR name="low text" id="34a63e8887bfc5f3" memberName="lowText" virtualName=""
-              explicitFocusOrder="0" pos="626 117 44 20" initialText="" multiline="0"
+              explicitFocusOrder="0" pos="626 129 44 20" initialText="" multiline="0"
               retKeyStartsLine="0" readonly="0" scrollbars="0" caret="1" popupmenu="1"/>
   <TEXTEDITOR name="high text" id="78ea03ee33471435" memberName="highText"
-              virtualName="" explicitFocusOrder="0" pos="692 117 44 20" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="692 129 44 20" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="0"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="b85453e71d7e819a" memberName="newButton"
-              virtualName="" explicitFocusOrder="0" pos="36 525 63 24" buttonText="New"
+              virtualName="" explicitFocusOrder="0" pos="36 571 63 24" buttonText="New"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="open button" id="aff16e2440c1e77e" memberName="openButton"
-              virtualName="" explicitFocusOrder="0" pos="36 454 63 24" buttonText="Open"
+              virtualName="" explicitFocusOrder="0" pos="36 500 63 24" buttonText="Open"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="save as button" id="36951dd779d924d0" memberName="saveAsButton"
-              virtualName="" explicitFocusOrder="0" pos="36 489 63 24" buttonText="Save As"
+              virtualName="" explicitFocusOrder="0" pos="36 535 63 24" buttonText="Save As"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <GROUPCOMPONENT name="new group" id="6ec7de23acb7bc6f" memberName="groupComponent2"
-                  virtualName="" explicitFocusOrder="0" pos="32 16 184 233" textcol="ffffffff"
+                  virtualName="" explicitFocusOrder="0" pos="32 16 184 233" textcol="9effffff"
                   title="System"/>
   <LABEL name="new label" id="55d41def757f7937" memberName="label2" virtualName=""
          explicitFocusOrder="0" pos="619 39 63 24" edTextCol="ff000000"
@@ -1449,7 +1531,7 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="76f809313cab5795" memberName="label4" virtualName=""
-         explicitFocusOrder="0" pos="619 94 87 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="619 106 87 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Track Range" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
@@ -1464,18 +1546,19 @@ BEGIN_JUCER_METADATA
   <SLIDER name="volume slider" id="fbfedd66eca0907d" memberName="volSlider"
           virtualName="" explicitFocusOrder="0" pos="52 112 140 24" rotarysliderfill="7f000000"
           min="-20" max="10" int="1" style="LinearHorizontal" textBoxPos="TextBoxRight"
-          textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
+          textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"
+          needsCallback="1"/>
   <LABEL name="new label" id="8236b56510d8f8c8" memberName="label22" virtualName=""
          explicitFocusOrder="0" pos="51 90 150 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Output Volume (dB)" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <HYPERLINKBUTTON name="link button" id="f202f29b31c62ae" memberName="linkButton"
-                   virtualName="" explicitFocusOrder="0" pos="34 557 68 24" tooltip="http://robertsonics.com/wav-trigger-online-user-guide/"
-                   textCol="ffffffff" buttonText="Help" connectedEdges="0" needsCallback="1"
+                   virtualName="" explicitFocusOrder="0" pos="145 570 68 24" tooltip="http://robertsonics.com/wav-trigger-online-user-guide/"
+                   textCol="9effffff" buttonText="Help" connectedEdges="0" needsCallback="1"
                    radioGroupId="0" url="http://robertsonics.com/wav-trigger-online-user-guide/"/>
   <TEXTEDITOR name="init text editor" id="affceb0f94323c59" memberName="initText"
-              virtualName="" explicitFocusOrder="0" pos="248 361 520 215" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="248 381 520 215" initialText=""
               multiline="1" retKeyStartsLine="1" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <COMBOBOX name="trigger combo box" id="254229b66c221ce9" memberName="triggerBox"
@@ -1485,13 +1568,13 @@ BEGIN_JUCER_METADATA
             virtualName="" explicitFocusOrder="0" pos="350 62 143 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <TEXTBUTTON name="add button" id="82c93bdd5a7a904" memberName="addButton"
-              virtualName="" explicitFocusOrder="0" pos="356 206 63 24" buttonText="Add"
+              virtualName="" explicitFocusOrder="0" pos="356 221 63 24" buttonText="Add"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="update button" id="1bccddea64d1188d" memberName="updateButton"
-              virtualName="" explicitFocusOrder="0" pos="436 206 63 24" buttonText="Update"
+              virtualName="" explicitFocusOrder="0" pos="436 221 63 24" buttonText="Update"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="delete button" id="59540029ea4972fb" memberName="deleteButton"
-              virtualName="" explicitFocusOrder="0" pos="516 206 63 24" buttonText="Delete"
+              virtualName="" explicitFocusOrder="0" pos="516 221 63 24" buttonText="Delete"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="fa287ff2e92f4a56" memberName="label5" virtualName=""
          explicitFocusOrder="0" pos="271 38 56 24" edTextCol="ff000000"
@@ -1507,15 +1590,15 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="343 105 95 24" buttonText="Re-Triggers"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TEXTBUTTON name="reset button" id="4dc7d5288c0df2c4" memberName="resetButton"
-              virtualName="" explicitFocusOrder="0" pos="276 206 63 24" buttonText="Reset"
+              virtualName="" explicitFocusOrder="0" pos="276 221 63 24" buttonText="Reset"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <LABEL name="new label" id="fd492b223f17bf03" memberName="label8" virtualName=""
-         explicitFocusOrder="0" pos="621 135 40 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="621 147 40 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Low" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="72cd6762c5446d8e" memberName="label9" virtualName=""
-         explicitFocusOrder="0" pos="687 136 40 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="687 148 40 24" edTextCol="ff000000"
          edBkgCol="0" labelText="High" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
@@ -1523,53 +1606,55 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="51 145 136 24" buttonText="Audio Amp Power"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <LABEL name="new label" id="5a682e7a8a3d958d" memberName="label10" virtualName=""
-         explicitFocusOrder="0" pos="243 338 125 24" textCol="fffffdfd"
+         explicitFocusOrder="0" pos="243 357 125 24" textCol="9effffff"
          edTextCol="ff000000" edBkgCol="0" labelText="Init File Contents:"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Default font" fontsize="15" bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="delete button" id="4442e4119290b378" memberName="testButton"
-              virtualName="" explicitFocusOrder="0" pos="676 206 63 24" bgColOff="ffd00009"
+              virtualName="" explicitFocusOrder="0" pos="676 221 63 24" bgColOff="ffd00009"
               buttonText="Test" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <COMBOBOX name="new combo box" id="c435d1c5f7439ac0" memberName="portBox"
-            virtualName="" explicitFocusOrder="0" pos="323 292 208 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="323 308 208 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="7379b2c212d86ee1" memberName="label11" virtualName=""
-         explicitFocusOrder="0" pos="275 292 48 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="275 308 48 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Port:" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <COMBOBOX name="new combo box" id="b2a56f4745f2174c" memberName="testBaudBox"
-            virtualName="" explicitFocusOrder="0" pos="632 292 104 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="632 308 104 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="e8953b892beb4114" memberName="label12" virtualName=""
-         explicitFocusOrder="0" pos="559 293 72 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="559 309 72 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Baudrate:" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <SLIDER name="trig volume slider" id="68756f4fad130222" memberName="trigVolSlider"
-          virtualName="" explicitFocusOrder="0" pos="408 147 140 24" min="-20"
+          virtualName="" explicitFocusOrder="0" pos="408 180 140 24" min="-20"
           max="10" int="1" style="LinearHorizontal" textBoxPos="TextBoxRight"
-          textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
+          textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"
+          needsCallback="1"/>
   <LABEL name="new label" id="ba8e00fa1d703ed8" memberName="label7" virtualName=""
-         explicitFocusOrder="0" pos="274 146 150 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="274 179 150 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Trigger Volume (dB)" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="stop button" id="4b667057695aa760" memberName="stopButton"
-              virtualName="" explicitFocusOrder="0" pos="148 453 63 24" buttonText="StopAll"
+              virtualName="" explicitFocusOrder="0" pos="148 499 63 24" buttonText="StopAll"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="copy button" id="923548f55486380c" memberName="copyButton"
-              virtualName="" explicitFocusOrder="0" pos="596 206 63 24" buttonText="Copy"
+              virtualName="" explicitFocusOrder="0" pos="596 221 63 24" buttonText="Copy"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="velocity toggle button" id="f4db3cfaede9e9fd" memberName="velocityToggle"
-                virtualName="" explicitFocusOrder="0" pos="51 377 150 24" buttonText="Ignore Velocity"
+                virtualName="" explicitFocusOrder="0" pos="51 419 150 24" buttonText="Ignore Velocity"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <SLIDER name="release slider" id="15aa3da61a7b51ad" memberName="releaseSlider"
-          virtualName="" explicitFocusOrder="0" pos="52 346 140 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="52 388 140 24" min="0"
           max="127" int="1" style="LinearHorizontal" textBoxPos="TextBoxRight"
-          textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
+          textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"
+          needsCallback="1"/>
   <LABEL name="new label" id="cdfea73ff3c1eb4b" memberName="releaseText"
-         virtualName="" explicitFocusOrder="0" pos="51 324 155 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="51 366 155 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Default Release (msec)" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
@@ -1585,19 +1670,30 @@ BEGIN_JUCER_METADATA
             virtualName="" explicitFocusOrder="0" pos="96 203 96 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <COMBOBOX name="pitch box" id="7d52d2e9e85b09c8" memberName="pitchBox"
-            virtualName="" explicitFocusOrder="0" pos="134 288 58 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="134 330 58 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="e118a36298cb29b5" memberName="pitchText"
-         virtualName="" explicitFocusOrder="0" pos="52 280 80 40" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="52 322 80 40" edTextCol="ff000000"
          edBkgCol="0" labelText="Pitch Bend&#10;Semitones" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
   <TOGGLEBUTTON name="noteOff toggle button" id="9133c3e894575bc8" memberName="noteOffToggle"
-                virtualName="" explicitFocusOrder="0" pos="51 400 150 24" buttonText="Ignore Note-Offs"
+                virtualName="" explicitFocusOrder="0" pos="51 442 150 24" buttonText="Ignore Note-Offs"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="new toggle button" id="352d2b82ce0335a5" memberName="loopToggle"
                 virtualName="" explicitFocusOrder="0" pos="546 106 62 24" buttonText="Loop"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
+  <TOGGLEBUTTON name="lock toggle" id="eaa2db56f6f7483f" memberName="lockToggle"
+                virtualName="" explicitFocusOrder="0" pos="273 138 93 24" buttonText="Lock Voice"
+                connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
+  <COMBOBOX name="channel box" id="bdc4048aa021074" memberName="channelBox"
+            virtualName="" explicitFocusOrder="0" pos="118 289 74 24" editable="0"
+            layout="34" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
+  <LABEL name="new label" id="b89b3718e969a29a" memberName="channelText"
+         virtualName="" explicitFocusOrder="0" pos="51 288 62 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Channel" editableSingleClick="0" editableDoubleClick="0"
+         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
+         bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
