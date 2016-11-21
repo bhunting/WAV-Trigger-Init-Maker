@@ -4,5 +4,6 @@
 *.suo
 *.aps
 *.user
+*.db
 [Dd]ebug
 [Rr]elease
